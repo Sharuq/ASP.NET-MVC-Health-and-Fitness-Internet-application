@@ -29,5 +29,7 @@ namespace StayFit.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<StayFit.Models.MemberProfile> MemberProfile { get; set; }
     }
 }
