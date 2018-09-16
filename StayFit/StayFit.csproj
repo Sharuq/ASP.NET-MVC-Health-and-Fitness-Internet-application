@@ -227,13 +227,25 @@
     <Content Include="Content\Images\2.jpg" />
     <Content Include="Content\Images\3.jpg" />
     <Content Include="Content\Images\1.jpg" />
+    <Content Include="Content\Images\armchllg.jpg" />
+    <Content Include="Content\Images\beachbody.jpg" />
+    <Content Include="Content\Images\fullbody.jpg" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\p1.jpg" />
+    <Content Include="Content\Images\p2.jpg" />
+    <Content Include="Content\Images\p3.jpg" />
+    <Content Include="Content\Images\p4.jpg" />
+    <Content Include="Content\Images\primary-radio.png" />
+    <Content Include="Content\Images\serv.png" />
     <Content Include="Content\Images\service1.jpg" />
     <Content Include="Content\Images\service2.jpg" />
     <Content Include="Content\Images\service3.jpg" />
     <Content Include="Content\Images\service4.jpg" />
     <Content Include="Content\Images\service5.jpg" />
     <Content Include="Content\Images\service6.jpg" />
+    <Content Include="Content\Images\ttl-bar.png" />
+    <Content Include="Content\Images\weighloss.jpg" />
+    <Content Include="Content\owl.carousel.css" />
     <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -271,6 +283,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\owl.carousel.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -327,6 +340,9 @@
     <Content Include="Views\MemberProfiles\Details.cshtml" />
     <Content Include="Views\MemberProfiles\Edit.cshtml" />
     <Content Include="Views\MemberProfiles\Index.cshtml" />
+    <Content Include="Views\Shared\Gym_Member_Layout.cshtml" />
+    <Content Include="Views\MemberProfiles\UserProfile.cshtml" />
+    <Content Include="Views\MemberProfiles\NewIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -187,7 +187,346 @@
     color: rgba(62, 214, 115, 1) !important;
 }
 
-.single-service-ovelay,
-.single-service-ovelay h4 {
+
+.single-price {
+    background-color: #f6214b;
 }
 
+ .single-price .top-sec, .single-price .bottom-sec {
+        border-bottom: 1px solid rgba(62, 214, 115, 1);
+        padding: 40px 40px 22px 40px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+ }
+
+.single-price .top-sec br, .single-price .bottom-sec br {
+            display: none;
+}
+
+@media (max-width: 1024px) {
+    .single-price .top-sec br, .single-price .bottom-sec br {
+        display: block;
+    }
+}
+
+.single-price .end-sec {
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    padding: 40px 40px 22px 40px;
+}
+
+ .single-price .end-sec ul li {
+        margin-bottom: 20px;
+ }
+
+.single-price .price-btn {
+    background: rgba(62, 214, 115, 1);
+    color: #ffd800;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.single-price:hover {
+    cursor: pointer;
+}
+
+    .single-price:hover .bottom-sec, .single-price:hover .end-sec {
+        background-color: rgba(62, 214, 115, 1);
+        box-shadow: 0px 20px 20px 0px rgba(157, 157, 157, 0.5);
+        color: #f6214b;
+    }
+
+    .single-price:hover .price-btn {
+        background: #ff6a00;
+        color: #222;
+    }
+
+        .single-price:hover .price-btn .lnr {
+            color: rgba(62, 214, 115, 1);
+        }
+
+@media (max-width: 800px) {
+    .single-price {
+        margin-bottom: 30px;
+    }
+
+        .single-price .bottom-sec, .single-price .end-sec {
+            text-align: center;
+        }
+}
+.single-price a, a:hover, a:focus {
+    text-decoration: none;
+    outline: 0;
+}
+
+
+
+/*3.4 call to action-1 start*/
+.call-to-action1 .cta-img {
+    width: 100%;
+}
+
+    .call-to-action1 .cta-img img {
+        width: 100%;
+    }
+
+.call-to-action1 .cta-box h4.sub-title {
+    color: #ea510d;
+    font-size: 150px;
+    line-height: 30px;
+}
+
+.call-to-action1 .cta-box h5.title {
+    color: #000;
+    font-size: 35px;
+    line-height: 35px;
+}
+
+.call-to-action1 .bttn {
+    text-align: left;
+}
+
+.tab-action .cta-box h4 {
+    font-size: 35px;
+    font-weight: normal;
+    color: #000;
+}
+
+.tab-action .cta-box h5 {
+    font-size: 35px;
+    color: #ea510d;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #a6a6a6;
+}
+
+.tab-action .cta-box .nav {
+    flex-wrap: inherit;
+    margin-top: 50px;
+    border: inherit;
+}
+
+    .tab-action .cta-box .nav .nav-item .nav-link, .tab-action .cta-box .nav .nav-tabs .nav-item.show .nav-link, .tab-action .cta-box .nav-tabs .nav .nav-item.show .nav-link, .single-tab-area .single-tab .nav-tabs .tab-action .cta-box .nav .nav-item.show .nav-link {
+        border-radius: inherit;
+    }
+
+.tab-action .cta-box .nav-tabs .nav-link, .tab-action .cta-box .nav-tabs .nav-item.show .nav-link {
+    border: inherit;
+    font-size: 16px;
+    color: #000;
+    transition: all 0.5s ease 0s;
+    padding: 10px 0;
+}
+
+    .tab-action .cta-box .nav-tabs .nav-link i, .tab-action .cta-box .nav-tabs .nav-item.show .nav-link i {
+        color: #ea510d;
+        margin-right: 10px;
+        transition: all 0.5s ease 0s;
+    }
+
+    .tab-action .cta-box .nav-tabs .nav-link:hover, .tab-action .cta-box .nav-tabs .nav-item.show .nav-link:hover, .tab-action .cta-box .nav-tabs .nav-link.active, .tab-action .cta-box .nav-tabs .nav-item.show .active.nav-link {
+        color: #ea510d;
+        background-color: transparent;
+        border: inherit;
+    }
+
+        .tab-action .cta-box .nav-tabs .nav-link:hover i, .tab-action .cta-box .nav-tabs .nav-item.show .nav-link:hover i, .tab-action .cta-box .nav-tabs .nav-link.active i, .tab-action .cta-box .nav-tabs .nav-item.show .active.nav-link i {
+            color: #000;
+        }
+
+.tab-action .cta-box .tab-content {
+    margin-top: 15px;
+}
+
+.tab-action .cta-box .bttn {
+    margin-top: 40px;
+}
+
+
+.mb30 {
+    margin-bottom: 30px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+
+
+/*3.8 product box*/
+.product-area .product-carousel {
+    position: relative;
+}
+
+    .product-area .product-carousel .owl-buttons div {
+        position: absolute;
+        left: -6%;
+        top: 40%;
+        background: transparent !important;
+        font-size: 40px;
+    }
+
+        .product-area .product-carousel .owl-buttons div i {
+            color: #a6a6a6;
+        }
+
+    .product-area .product-carousel .owl-next {
+        right: -6%;
+        left: inherit !important;
+    }
+
+.product-area .product-box {
+    position: relative;
+    display: block;
+}
+
+    .product-area .product-box .cart-box {
+        position: relative;
+    }
+
+        .product-area .product-box .cart-box .cart-img a {
+            width: 100%;
+            display: block;
+        }
+
+            .product-area .product-box .cart-box .cart-img a img {
+                width: 100%;
+            }
+
+        .product-area .product-box .cart-box .cart-element {
+            position: absolute;
+            bottom: 20%;
+            display: block;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+        }
+
+            .product-area .product-box .cart-box .cart-element a {
+                background: #fff;
+                padding: 6px 17px;
+                border-radius: 20px;
+                font-size: 12px;
+                color: #000;
+                margin-right: 10px;
+                transition: all 0.5s ease 0s;
+            }
+
+            .product-area .product-box .cart-box .cart-element i {
+                color: #fff;
+                margin-left: 10px;
+                transition: all 0.5s ease 0s;
+            }
+
+        .product-area .product-box .cart-box:hover a .ovrlay {
+            opacity: 1;
+        }
+
+        .product-area .product-box .cart-box:hover .cart-element {
+            opacity: 1;
+        }
+
+            .product-area .product-box .cart-box:hover .cart-element a {
+                margin-right: 5px;
+            }
+
+                .product-area .product-box .cart-box:hover .cart-element a:hover {
+                    background: #ea510d;
+                }
+
+            .product-area .product-box .cart-box:hover .cart-element i {
+                margin-left: 5px;
+            }
+
+    .product-area .product-box .cart-dtl {
+        padding: 20px 42px 0 42px;
+    }
+
+        .product-area .product-box .cart-dtl h4 {
+            font-size: 18px;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+            .product-area .product-box .cart-dtl h4 span {
+                float: right;
+            }
+
+        .product-area .product-box .cart-dtl .add-cart {
+            width: 100%;
+            display: block;
+            text-align: center;
+            line-height: 14px;
+        }
+
+            .product-area .product-box .cart-dtl .add-cart a {
+                font-size: 14px;
+                color: #6b6b6b;
+            }
+
+    .product-area .product-box:hover .cart-dtl .add-cart a {
+        color: #000;
+        background: inherit;
+    }
+
+.pad90 {
+    padding: 90px 0;
+}
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.column {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+
+@media screen and (max-width: 650px) {
+    .column {
+        width: 100%;
+        display: block;
+    }
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    padding: 0 16px;
+}
+
+    .container::after, .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+.title {
+    color: grey;
+}
+
+.button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+    .button:hover {
+        background-color: #555;
+    }

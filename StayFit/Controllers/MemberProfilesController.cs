@@ -19,6 +19,10 @@ namespace StayFit.Controllers
         {
             return View(db.MemberProfile.ToList());
         }
+        public ActionResult NewIndex()
+        {
+            return View();
+        }
 
         // GET: MemberProfiles/Details/5
         public ActionResult Details(int? id)
@@ -28,6 +32,23 @@ namespace StayFit.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             MemberProfile memberProfile = db.MemberProfile.Find(id);
+            if (memberProfile == null)
+            {
+                return HttpNotFound();
+            }
+            return View(memberProfile);
+        }
+
+        // GET: MemberProfiles/UserProfile/
+        public ActionResult UserProfile()
+        {
+            string id = User.Identity.GetUserId();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            MemberProfile memberProfile = db.MemberProfile.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
             if (memberProfile == null)
             {
                 return HttpNotFound();

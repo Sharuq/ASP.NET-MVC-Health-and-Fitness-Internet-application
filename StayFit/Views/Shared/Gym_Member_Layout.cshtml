@@ -17,17 +17,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                <img src="~/Content/Images/logo.png" title="title" alt="additional title" width="90" height="30"/>
+                <a href="@Url.Action("Index", "MemberProfiles")" class="navbar-brand">
+                    <img src="~/Content/Images/logo.png" title="title" alt="additional title" width="90" height="30" />
                 </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Services", "Index", "Home", null, null, "service", new { id = "service" }, null)</li>
-                    <li>@Html.ActionLink("Pricing", "Index", "Home", null, null, "pricing", new { id = "pricing" }, null)</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "MemberProfiles")</li>
+                    <li>@Html.ActionLink("Services", "Index", "MemberProfiles", null, null, "service", new { id = "service" }, null)</li>
+                    <li>@Html.ActionLink("UserProfile", "UserProfile", "MemberProfiles")</li>
+                    <li>@Html.ActionLink("Challenges", "Challenges", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -36,8 +35,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        
-        <footer id="fh5co-footer" class="fh5co-bg"  role="contentinfo">
+
+        <footer id="fh5co-footer" class="fh5co-bg" role="contentinfo">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row row-pb-md">
@@ -45,7 +44,6 @@
                         <h3>About Us.</h3>
                         <p>We are the best of best. Train with confidences ,Set a goal and beat through challenges.</p>
                         <br />
-                        <p><a class="btn btn-primary" href="#">Become A Member</a></p>
                     </div>
                     <div class="col-md-8">
                         <h3>Our Classes</h3>
@@ -54,7 +52,7 @@
                                 <li><a href="#">Cardio</a></li>
                                 <li><a href="#">Body Building</a></li>
                                 <li><a href="#">Yoga</a></li>
-                                
+
                             </ul>
                         </div>
 
@@ -63,7 +61,7 @@
                                 <li><a href="#">Cross Fit</a></li>
                                 <li><a href="#">Group Sessions</a></li>
                                 <li><a href="#">Personal Training</a></li>
-                                
+
                             </ul>
                         </div>
 
@@ -84,16 +82,17 @@
                             <small class="block">&copy; 2018 . All Rights Reserved.</small>
                             <small class="block">Designed by Sharuq. Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
                         </p>
-                       
+
                     </div>
                 </div>
 
             </div>
         </footer>
     </div>
-    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    
 </body>
 </html>
