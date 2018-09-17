@@ -1,14 +1,16 @@
-﻿@model StayFit.Models.MemberProfile
-
+﻿
+@model StayFit.Models.GymMember
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "UserProfile";
     Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Your Profile</h2>
+
+
 
 <div>
-    <h4>MemberProfile</h4>
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -43,9 +45,33 @@
             @Html.DisplayFor(model => model.Address)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Height)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MembershipType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MembershipType)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.member_Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Member_Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

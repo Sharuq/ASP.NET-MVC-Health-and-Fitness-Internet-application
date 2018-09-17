@@ -30,6 +30,8 @@ namespace StayFit.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<StayFit.Models.MemberProfile> MemberProfile { get; set; }
+        public System.Data.Entity.DbSet<StayFit.Models.GymMember> GymMember { get; set; }
+        public System.Data.Entity.DbSet<StayFit.Models.PaymentGateway> PaymentGateway { get; set; }
+        public System.Data.Entity.DbSet<StayFit.Models.MembershipType> MembershipType { get; set; }
     }
 }

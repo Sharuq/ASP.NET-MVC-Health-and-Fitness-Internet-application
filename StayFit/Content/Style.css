@@ -187,23 +187,24 @@
     color: rgba(62, 214, 115, 1) !important;
 }
 
+/*price*/
 
 .single-price {
-    background-color: #f6214b;
+    background-color: #ffd800;
 }
 
- .single-price .top-sec, .single-price .bottom-sec {
-        border-bottom: 1px solid rgba(62, 214, 115, 1);
+    .single-price .top-sec, .single-price .bottom-sec {
+        border-bottom: 1px solid #eeeeee;
         padding: 40px 40px 22px 40px;
         -webkit-transition: all 0.3s ease 0s;
         -moz-transition: all 0.3s ease 0s;
         -o-transition: all 0.3s ease 0s;
         transition: all 0.3s ease 0s;
- }
+    }
 
-.single-price .top-sec br, .single-price .bottom-sec br {
+        .single-price .top-sec br, .single-price .bottom-sec br {
             display: none;
-}
+        }
 
 @media (max-width: 1024px) {
     .single-price .top-sec br, .single-price .bottom-sec br {
@@ -219,14 +220,15 @@
     padding: 40px 40px 22px 40px;
 }
 
- .single-price .end-sec ul li {
+    .single-price .end-sec ul li {
         margin-bottom: 20px;
- }
+    }
 
 .single-price .price-btn {
-    background: rgba(62, 214, 115, 1);
-    color: #ffd800;
-    border-radius: 0;
+    background: #222;
+    color: #fff;
+    border-radius:2px;
+
     box-shadow: none;
 }
 
@@ -235,18 +237,18 @@
 }
 
     .single-price:hover .bottom-sec, .single-price:hover .end-sec {
-        background-color: rgba(62, 214, 115, 1);
+        background-color: #f6214b;
         box-shadow: 0px 20px 20px 0px rgba(157, 157, 157, 0.5);
-        color: #f6214b;
+        color: #fff;
     }
 
     .single-price:hover .price-btn {
-        background: #ff6a00;
+        background: #fff;
         color: #222;
     }
 
         .single-price:hover .price-btn .lnr {
-            color: rgba(62, 214, 115, 1);
+            color: #222;
         }
 
 @media (max-width: 800px) {
@@ -258,12 +260,6 @@
             text-align: center;
         }
 }
-.single-price a, a:hover, a:focus {
-    text-decoration: none;
-    outline: 0;
-}
-
-
 
 /*3.4 call to action-1 start*/
 .call-to-action1 .cta-img {
@@ -447,7 +443,7 @@
 
         .product-area .product-box .cart-dtl h4 {
             font-size: 18px;
-            color: #000;
+            color: #eeeeee;
             margin-bottom: 10px;
         }
 
@@ -464,13 +460,14 @@
 
             .product-area .product-box .cart-dtl .add-cart a {
                 font-size: 14px;
-                color: #6b6b6b;
+                color: rgba(62, 214, 115, 1);
             }
 
     .product-area .product-box:hover .cart-dtl .add-cart a {
         color: #000;
         background: inherit;
     }
+    
 
 .pad90 {
     padding: 90px 0;

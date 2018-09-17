@@ -6,40 +6,42 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using StayFit.Models;
+using Microsoft.AspNet.Identity;
 namespace StayFit.Controllers
 {
-    public class MemberProfilesController : Controller
+    public class GymMembersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: MemberProfiles
-        public ActionResult Index()
-        {
-            return View(db.MemberProfile.ToList());
-        }
-        public ActionResult NewIndex()
+        // GET: GymMembers
+        public ActionResult List()
         {
             return View();
         }
 
-        // GET: MemberProfiles/Details/5
+        // GET: GymMembers
+        public ActionResult Index()
+        {
+            return View(db.GymMember.ToList());
+        }
+
+        // GET: GymMembers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MemberProfile memberProfile = db.MemberProfile.Find(id);
-            if (memberProfile == null)
+            GymMember gymMember = db.GymMember.Find(id);
+            if (gymMember == null)
             {
                 return HttpNotFound();
             }
-            return View(memberProfile);
+            return View(gymMember);
         }
 
-        // GET: MemberProfiles/UserProfile/
+        // GET: GymMembers/UserProfile/
         public ActionResult UserProfile()
         {
             string id = User.Identity.GetUserId();
@@ -48,7 +50,7 @@ namespace StayFit.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            MemberProfile memberProfile = db.MemberProfile.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
+            GymMember memberProfile = db.GymMember.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
             if (memberProfile == null)
             {
                 return HttpNotFound();
@@ -56,87 +58,85 @@ namespace StayFit.Controllers
             return View(memberProfile);
         }
 
-        // GET: MemberProfiles/Create
+        // GET: GymMembers/Create
         public ActionResult Create()
         {
+            ViewBag.MembershipType = new SelectList(db.MembershipType, "Membership_Id", "Membership_tier");
             return View();
         }
 
-        // POST: MemberProfiles/Create
+        // POST: GymMembers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "member_Id,FirstName,LastName,DateOfBirth,Address")] MemberProfile memberProfile)
+        public ActionResult Create([Bind(Include = "Member_Id,FirstName,LastName,DateOfBirth,Address,Height,Weight,MembershipType")] GymMember gymMember)
         {
-            
             if (ModelState.IsValid)
             {
+                gymMember.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
                 
-
-                memberProfile.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
-                db.MemberProfile.Add(memberProfile);
-                
+                db.GymMember.Add(gymMember);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(memberProfile);
+            return View(gymMember);
         }
 
-        // GET: MemberProfiles/Edit/5
+        // GET: GymMembers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MemberProfile memberProfile = db.MemberProfile.Find(id);
-            if (memberProfile == null)
+            GymMember gymMember = db.GymMember.Find(id);
+            if (gymMember == null)
             {
                 return HttpNotFound();
             }
-            return View(memberProfile);
+            return View(gymMember);
         }
 
-        // POST: MemberProfiles/Edit/5
+        // POST: GymMembers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "member_Id,FirstName,LastName,DateOfBirth,Address")] MemberProfile memberProfile)
+        public ActionResult Edit([Bind(Include = "Member_Id,FirstName,LastName,DateOfBirth,Address,Height,Weight,MembershipType")] GymMember gymMember)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(memberProfile).State = EntityState.Modified;
+                db.Entry(gymMember).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(memberProfile);
+            return View(gymMember);
         }
 
-        // GET: MemberProfiles/Delete/5
+        // GET: GymMembers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MemberProfile memberProfile = db.MemberProfile.Find(id);
-            if (memberProfile == null)
+            GymMember gymMember = db.GymMember.Find(id);
+            if (gymMember == null)
             {
                 return HttpNotFound();
             }
-            return View(memberProfile);
+            return View(gymMember);
         }
 
-        // POST: MemberProfiles/Delete/5
+        // POST: GymMembers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MemberProfile memberProfile = db.MemberProfile.Find(id);
-            db.MemberProfile.Remove(memberProfile);
+            GymMember gymMember = db.GymMember.Find(id);
+            db.GymMember.Remove(gymMember);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

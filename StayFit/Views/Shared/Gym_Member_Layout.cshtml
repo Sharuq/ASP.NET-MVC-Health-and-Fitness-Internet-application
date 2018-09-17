@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StayFit</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css-ui")
     @Scripts.Render("~/bundles/modernizr")
+
     <link href="~/Content/Style.css" rel="stylesheet" />
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -17,15 +20,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="@Url.Action("Index", "MemberProfiles")" class="navbar-brand">
+                <a href="@Url.Action("Index", "GymMembers")" class="navbar-brand">
                     <img src="~/Content/Images/logo.png" title="title" alt="additional title" width="90" height="30" />
                 </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "MemberProfiles")</li>
-                    <li>@Html.ActionLink("Services", "Index", "MemberProfiles", null, null, "service", new { id = "service" }, null)</li>
-                    <li>@Html.ActionLink("UserProfile", "UserProfile", "MemberProfiles")</li>
+                    <li>@Html.ActionLink("Home", "Index", "GymMembers")</li>
+                    <li>@Html.ActionLink("Services", "Index", "GymMembers", null, null, "service", new { id = "service" }, null)</li>
+                    <li>@Html.ActionLink("UserProfile", "UserProfile", "GymMembers")</li>
                     <li>@Html.ActionLink("Challenges", "Challenges", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -92,7 +95,15 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
-    
+
+
+    <script>
+        $(document).ready(function () {
+            $('.date-picker').datepicker();
+        });
+    </script>
+
 </body>
 </html>

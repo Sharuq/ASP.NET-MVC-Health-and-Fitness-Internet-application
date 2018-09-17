@@ -79,7 +79,7 @@ namespace StayFit.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("NewIndex", "MemberProfiles");
+                    return RedirectToAction("Index", "GymMembers");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

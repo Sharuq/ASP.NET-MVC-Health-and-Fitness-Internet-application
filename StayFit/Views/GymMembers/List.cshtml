@@ -1,7 +1,7 @@
-﻿@model IEnumerable<StayFit.Models.MemberProfile>
+﻿@model IEnumerable<StayFit.Models.GymMember>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List";
     Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
 }
 
@@ -24,6 +24,15 @@
         <th>
             @Html.DisplayNameFor(model => model.Address)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Height)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MembershipType)
+        </th>
         <th></th>
     </tr>
 
@@ -42,9 +51,18 @@
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.member_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.member_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.member_Id })
+            @Html.DisplayFor(modelItem => item.Height)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MembershipType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Member_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Member_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Member_Id })
         </td>
     </tr>
 }
