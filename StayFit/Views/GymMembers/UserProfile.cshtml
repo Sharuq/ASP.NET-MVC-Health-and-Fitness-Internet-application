@@ -66,7 +66,22 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MembershipType)
+
+            @if (Model.MembershipType.Equals("2"))
+            {
+                <P> STANDARD: A$50/Month </P>
+            }
+            @if (Model.MembershipType.Equals("3"))
+            {
+
+                <P> PREMIUM: A$80/Month </P>
+            }
+            @if (Model.MembershipType.Equals("4"))
+            {
+
+                <P> PLATINUM: A$120/Month </P>
+            }
+
         </dd>
 
     </dl>

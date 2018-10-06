@@ -196,6 +196,7 @@
     <Compile Include="Controllers\GymMembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ServiceBookingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -215,13 +216,61 @@
     <Compile Include="Migrations\201809171354190_newfeatures.Designer.cs">
       <DependentUpon>201809171354190_newfeatures.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810060807267_tes.cs" />
+    <Compile Include="Migrations\201810060807267_tes.Designer.cs">
+      <DependentUpon>201810060807267_tes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810060809127_new tables.cs" />
+    <Compile Include="Migrations\201810060809127_new tables.Designer.cs">
+      <DependentUpon>201810060809127_new tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810060839157_updated table.cs" />
+    <Compile Include="Migrations\201810060839157_updated table.Designer.cs">
+      <DependentUpon>201810060839157_updated table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810060850466_new tables1.cs" />
+    <Compile Include="Migrations\201810060850466_new tables1.Designer.cs">
+      <DependentUpon>201810060850466_new tables1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810060954201_new.cs" />
+    <Compile Include="Migrations\201810060954201_new.Designer.cs">
+      <DependentUpon>201810060954201_new.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810060958374_new1.cs" />
+    <Compile Include="Migrations\201810060958374_new1.Designer.cs">
+      <DependentUpon>201810060958374_new1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810061334109_new2.cs" />
+    <Compile Include="Migrations\201810061334109_new2.Designer.cs">
+      <DependentUpon>201810061334109_new2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810061340556_new12.cs" />
+    <Compile Include="Migrations\201810061340556_new12.Designer.cs">
+      <DependentUpon>201810061340556_new12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810061347386_newo2.cs" />
+    <Compile Include="Migrations\201810061347386_newo2.Designer.cs">
+      <DependentUpon>201810061347386_newo2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810061403066_new112.cs" />
+    <Compile Include="Migrations\201810061403066_new112.Designer.cs">
+      <DependentUpon>201810061403066_new112.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810061647106_new152.cs" />
+    <Compile Include="Migrations\201810061647106_new152.Designer.cs">
+      <DependentUpon>201810061647106_new152.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CombinedServiceBookingTimings.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\GymMember.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\PaymentGateway.cs" />
+    <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\ServiceBooking.cs" />
+    <Compile Include="Models\ServiceTimings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -361,6 +410,11 @@
     <Content Include="Views\GymMembers\Edit.cshtml" />
     <Content Include="Views\GymMembers\List.cshtml" />
     <Content Include="Views\GymMembers\UserProfile.cshtml" />
+    <Content Include="Views\ServiceBookings\Create.cshtml" />
+    <Content Include="Views\ServiceBookings\Delete.cshtml" />
+    <Content Include="Views\ServiceBookings\Details.cshtml" />
+    <Content Include="Views\ServiceBookings\Edit.cshtml" />
+    <Content Include="Views\ServiceBookings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -388,6 +442,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809171354190_newfeatures.resx">
       <DependentUpon>201809171354190_newfeatures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810060807267_tes.resx">
+      <DependentUpon>201810060807267_tes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810060809127_new tables.resx">
+      <DependentUpon>201810060809127_new tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810060839157_updated table.resx">
+      <DependentUpon>201810060839157_updated table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810060850466_new tables1.resx">
+      <DependentUpon>201810060850466_new tables1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810060954201_new.resx">
+      <DependentUpon>201810060954201_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810060958374_new1.resx">
+      <DependentUpon>201810060958374_new1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810061334109_new2.resx">
+      <DependentUpon>201810061334109_new2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810061340556_new12.resx">
+      <DependentUpon>201810061340556_new12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810061347386_newo2.resx">
+      <DependentUpon>201810061347386_newo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810061403066_new112.resx">
+      <DependentUpon>201810061403066_new112.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810061647106_new152.resx">
+      <DependentUpon>201810061647106_new152.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

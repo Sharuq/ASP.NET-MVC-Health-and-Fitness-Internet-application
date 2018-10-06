@@ -19,7 +19,7 @@ namespace StayFit.Controllers
         {
             return View();
         }
-
+        
         // GET: GymMembers
         public ActionResult Index()
         {
@@ -72,10 +72,18 @@ namespace StayFit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Member_Id,FirstName,LastName,DateOfBirth,Address,Height,Weight,MembershipType")] GymMember gymMember)
         {
+            string memtype = gymMember.MembershipType;
+
+            //var Membership = db.MembershipType.Where(p => p.Membership_Id == memtype).Select(p=> p.Membership_tier);
+
+                
+
+
             if (ModelState.IsValid)
             {
                 gymMember.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
-                
+                //gymMember.MembershipType = Membership;
+
                 db.GymMember.Add(gymMember);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -84,9 +92,14 @@ namespace StayFit.Controllers
             return View(gymMember);
         }
 
+        
+
+
         // GET: GymMembers/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            ViewBag.MembershipType = new SelectList(db.MembershipType, "Membership_Id", "Membership_tier");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

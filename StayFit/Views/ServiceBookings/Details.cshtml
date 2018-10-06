@@ -1,0 +1,37 @@
+﻿@model StayFit.Models.ServiceBooking
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServiceBooking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookingStatus)
+        </dd>
+
+      
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Booking_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

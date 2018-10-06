@@ -66,9 +66,6 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MembershipType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-
-
-
                 @Html.DropDownListFor(model => model.MembershipType, (IEnumerable<SelectListItem>)ViewBag.MembershipType, null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MembershipType, "", new { @class = "text-danger" })
             </div>
