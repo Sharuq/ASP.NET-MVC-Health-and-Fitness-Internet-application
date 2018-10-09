@@ -15,7 +15,7 @@ namespace StayFit.Models
 
 
         [Required]
-        [Display(Name = "Select A Date")]
+        [Display(Name = "Choose a Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime BookingDate { get; set; }
 
@@ -26,7 +26,12 @@ namespace StayFit.Models
         [Required]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-       
+        
+        [Display(Name = "Choose a Service")]
         public virtual Service Service { get; set; }
+
+        
+        [Display(Name = "Choose a Prefered Time Schedule")]
+        public virtual ServiceTimings ServiceTimings { get; set; }
     }
 }

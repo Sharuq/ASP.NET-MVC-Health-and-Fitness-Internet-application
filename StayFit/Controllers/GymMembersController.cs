@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using StayFit.Models;
 using Microsoft.AspNet.Identity;
 namespace StayFit.Controllers
-{
+{   [Authorize]
     public class GymMembersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -72,23 +72,16 @@ namespace StayFit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Member_Id,FirstName,LastName,DateOfBirth,Address,Height,Weight,MembershipType")] GymMember gymMember)
         {
-            string memtype = gymMember.MembershipType;
-
-            //var Membership = db.MembershipType.Where(p => p.Membership_Id == memtype).Select(p=> p.Membership_tier);
-
-                
-
-
+            
             if (ModelState.IsValid)
             {
                 gymMember.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
-                //gymMember.MembershipType = Membership;
-
+                
                 db.GymMember.Add(gymMember);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.MembershipType = new SelectList(db.MembershipType, "Membership_Id", "Membership_tier");
             return View(gymMember);
         }
 

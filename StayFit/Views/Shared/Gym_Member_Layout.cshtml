@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StayFit</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/css-ui")
     @Scripts.Render("~/bundles/modernizr")
 
-    <link href="~/Content/Style.css" rel="stylesheet" />
+     <link href="~/Content/Style.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -53,7 +52,6 @@
                         <div class="col-md-4 col-sm-4 col-xs-6">
                             <ul class="fh5co-footer-links">
                                 <li><a href="#">Cardio</a></li>
-                                <li><a href="#">Body Building</a></li>
                                 <li><a href="#">Yoga</a></li>
 
                             </ul>
@@ -62,7 +60,6 @@
                         <div class="col-md-4 col-sm-4 col-xs-6">
                             <ul class="fh5co-footer-links">
                                 <li><a href="#">Cross Fit</a></li>
-                                <li><a href="#">Group Sessions</a></li>
                                 <li><a href="#">Personal Training</a></li>
 
                             </ul>
@@ -70,8 +67,7 @@
 
                         <div class="col-md-4 col-sm-4 col-xs-6">
                             <ul class="fh5co-footer-links">
-                                <li><a href="#">30 Day Challenges</a></li>
-                                <li><a href="#">Boot Camping</a></li>
+                                <li><a href="#">BodyPump</a></li>
                                 <li><a href="#">Boxing</a></li>
 
                             </ul>
@@ -95,15 +91,30 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
 
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $('.date-picker').datepicker();
+        $(function () {
+            $('.date-picker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                maxDate: new Date(2001, 0, 1)
+            });
         });
     </script>
+
+    <script>
+        $(function () {
+            $('.date-picker2').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                minDate: 'today'
+            });
+        });
+    </script>
+
 
 </body>
 </html>

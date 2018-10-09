@@ -39,8 +39,15 @@ namespace StayFit.Controllers
         // GET: ServiceBookings/Create
         public ActionResult Create()
         {
-            ViewBag.Service    = new SelectList(db.Service, "Service_Id ", "SeviceName");
+            ViewBag.Service = new SelectList(db.Service, "Service_Id ", "SeviceName");
             return View();
+        }
+
+        public JsonResult GetTimings(int timing_id)
+        {
+
+            List<ServiceTimings> ServiceTimings = db.ServiceTimings.Where(x => x.Service.Service_Id == timing_id).ToList();
+            return Json(ServiceTimings, JsonRequestBehavior.AllowGet);
         }
 
         // POST: ServiceBookings/Create
@@ -48,8 +55,34 @@ namespace StayFit.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Booking_Id,BookingDate,BookingStatus,ServiceTime")] ServiceBooking serviceBooking)
+        [Authorize]
+        public ActionResult Create([Bind(Include = "Booking_Id,BookingDate,BookingStatus,Service,ServiceTimings")] ServiceBooking serviceBooking)
         {
+           // int s_Id = serviceBooking.Service.Service_Id;
+           // int t_Id = serviceBooking.ServiceTimings.Timing_Id;
+
+
+
+            Service service  = db.Service.Where(x => x.Service_Id == serviceBooking.Service.Service_Id).SingleOrDefault();
+
+            ServiceTimings Timings = db.ServiceTimings.Where(x => x.Timing_Id == serviceBooking.ServiceTimings.Timing_Id).SingleOrDefault();
+
+            //serviceBooking.Service = db.Service.Where(x => x.Service_Id == serviceBooking.Service.Service_Id).SingleOrDefault();
+            // serviceBooking.ServiceTimings = db.ServiceTimings.Where(x => x.Timing_Id == serviceBooking.ServiceTimings.Timing_Id).SingleOrDefault();
+
+            serviceBooking.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
+            serviceBooking.Service.SeviceName = service.SeviceName;
+             serviceBooking.Service.ServiceDesc = service.ServiceDesc;
+            serviceBooking.Service.Service_Id = service.Service_Id;
+            serviceBooking.ServiceTimings.Timing_Id = Timings.Timing_Id;
+           serviceBooking.ServiceTimings.Timing = Timings.Timing;
+             serviceBooking.ServiceTimings.Service = Timings.Service;
+
+            ModelState.Clear();
+            TryValidateModel(serviceBooking);
+
+
+
             if (ModelState.IsValid)
             {
                 serviceBooking.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
@@ -57,15 +90,10 @@ namespace StayFit.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.Service = new SelectList(db.Service, "Service_Id ", "SeviceName");
             return View(serviceBooking);
         }
-        public JsonResult GetTimings(int service_id)
-        {
 
-            List < ServiceTimings > ServiceTimings = db.ServiceTimings.Where(x => x.Service.Service_Id == service_id).ToList();
-            return Json(ServiceTimings,JsonRequestBehavior.AllowGet);
-        }
         // GET: ServiceBookings/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -86,7 +114,7 @@ namespace StayFit.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Booking_Id,BookingDate,BookingStatus,ServiceTime")] ServiceBooking serviceBooking)
+        public ActionResult Edit([Bind(Include = "Booking_Id,BookingDate,BookingStatus")] ServiceBooking serviceBooking)
         {
             if (ModelState.IsValid)
             {

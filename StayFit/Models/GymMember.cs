@@ -35,10 +35,12 @@ namespace StayFit.Models
         public string Address { get; set; }
 
         [Required]
+        [Range(50, 250, ErrorMessage = "Enter height between 50 to 250")]
         [Display(Name = "Height (In Centimeters)")]
         public int Height { get; set; }
 
         [Required]
+        [Range(50, 250, ErrorMessage = "Enter weight between 50 to 300")]
         [Display(Name = "Weight (In Kilograms)")]
         public int Weight { get; set; }
 

@@ -11,7 +11,7 @@ namespace StayFit.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Service_Id { get; set; }
+        public int Timing_Id { get; set; }
 
         [Required]
         public string Timing { get; set; }

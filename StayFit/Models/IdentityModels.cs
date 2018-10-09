@@ -37,7 +37,5 @@ namespace StayFit.Models
         public System.Data.Entity.DbSet<StayFit.Models.Service> Service { get; set; }
         public System.Data.Entity.DbSet<StayFit.Models.ServiceBooking> ServiceBooking { get; set; }
         public System.Data.Entity.DbSet<StayFit.Models.ServiceTimings> ServiceTimings { get; set; }
-
-
     }
 }
