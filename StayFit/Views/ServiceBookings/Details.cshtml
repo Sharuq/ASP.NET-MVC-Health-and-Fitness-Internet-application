@@ -4,32 +4,23 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
 }
+<div class="container well">
 
-<h2>Details</h2>
+    <h1 style="font-size:45px;font-style:initial;font-family:Georgia; color:navy">Service Booking Details</h1>
+    <hr style="border-top: 1px solid #ccc; background: transparent;">
+    
 
-<div>
-    <h4>ServiceBooking</h4>
+    <h3 style="font-size:35px;font-style:oblique">Booking Id: @Html.DisplayFor(model => model.Booking_Id) </h3>
+    <h3 style="font-size:35px;font-style:oblique">Service Booked: @Html.DisplayFor(model => model.Service.SeviceName)</h3>
+    <h4 style="font-size:20px;font-style:italic"> @Html.DisplayFor(model => model.Service.ServiceDesc)</h4>
+    <h3 style="font-size:35px;font-style:oblique">Scheduled On:</h3>
+    <ul>
+        <li><h4 style="font-size:25px;font-style:italic">Booking Date: @Html.DisplayFor(model => model.BookingDate) </h4></li>
+        <li><h4 style="font-size:25px;font-style:italic">Timing: @Html.DisplayFor(model => model.ServiceTimings.Timing) </h4></li>
+    </ul>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BookingDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookingDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookingStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookingStatus)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Booking_Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Booking_Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

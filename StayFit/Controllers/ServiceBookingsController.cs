@@ -56,30 +56,31 @@ namespace StayFit.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Booking_Id,BookingDate,BookingStatus,Service,ServiceTimings")] ServiceBooking serviceBooking)
+        public ActionResult Create([Bind(Include = "Booking_Id,BookingDate,Service,ServiceTimings")] ServiceBooking serviceBooking)
         {
-           // int s_Id = serviceBooking.Service.Service_Id;
-           // int t_Id = serviceBooking.ServiceTimings.Timing_Id;
+            // int s_Id = serviceBooking.Service.Service_Id;
+            // int t_Id = serviceBooking.ServiceTimings.Timing_Id;
 
 
+           serviceBooking.BookingStatus = true;
+           Service service  = db.Service.Where(x => x.Service_Id == serviceBooking.Service.Service_Id).SingleOrDefault();
 
-            Service service  = db.Service.Where(x => x.Service_Id == serviceBooking.Service.Service_Id).SingleOrDefault();
+           ServiceTimings Timings = db.ServiceTimings.Where(x => x.Timing_Id == serviceBooking.ServiceTimings.Timing_Id).SingleOrDefault();
 
-            ServiceTimings Timings = db.ServiceTimings.Where(x => x.Timing_Id == serviceBooking.ServiceTimings.Timing_Id).SingleOrDefault();
+           serviceBooking.Service = db.Service.Where(x => x.Service_Id == serviceBooking.Service.Service_Id).SingleOrDefault();
+           serviceBooking.ServiceTimings = db.ServiceTimings.Where(x => x.Timing_Id == serviceBooking.ServiceTimings.Timing_Id).SingleOrDefault();
 
-            //serviceBooking.Service = db.Service.Where(x => x.Service_Id == serviceBooking.Service.Service_Id).SingleOrDefault();
-            // serviceBooking.ServiceTimings = db.ServiceTimings.Where(x => x.Timing_Id == serviceBooking.ServiceTimings.Timing_Id).SingleOrDefault();
-
-            serviceBooking.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
-            serviceBooking.Service.SeviceName = service.SeviceName;
-             serviceBooking.Service.ServiceDesc = service.ServiceDesc;
-            serviceBooking.Service.Service_Id = service.Service_Id;
-            serviceBooking.ServiceTimings.Timing_Id = Timings.Timing_Id;
+           serviceBooking.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
+           serviceBooking.Service.SeviceName = service.SeviceName;
+           serviceBooking.Service.ServiceDesc = service.ServiceDesc;
+           serviceBooking.Service.Service_Id = service.Service_Id;
+           serviceBooking.ServiceTimings.Timing_Id = Timings.Timing_Id;
            serviceBooking.ServiceTimings.Timing = Timings.Timing;
-             serviceBooking.ServiceTimings.Service = Timings.Service;
+           serviceBooking.ServiceTimings.Service = Timings.Service;
 
             ModelState.Clear();
-            TryValidateModel(serviceBooking);
+            TryValidateModel(serviceBooking);
+
 
 
 
