@@ -36,6 +36,27 @@ namespace StayFit.Controllers
             return View(serviceBooking);
         }
 
+        
+        public ActionResult CancelBooking(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServiceBooking serviceBooking = db.ServiceBooking.Find(id);
+            if (serviceBooking == null)
+            {
+                return HttpNotFound();
+            }
+            serviceBooking.BookingStatus = false;
+            if (ModelState.IsValid)
+            {
+                db.Entry(serviceBooking).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(serviceBooking);
+        }
         // GET: ServiceBookings/Create
         public ActionResult Create()
         {
@@ -56,7 +77,7 @@ namespace StayFit.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Booking_Id,BookingDate,Service,ServiceTimings")] ServiceBooking serviceBooking)
+        public ActionResult Create([Bind(Include = "Booking_Id,BookingDate,BookingStatus,Service,ServiceTimings")] ServiceBooking serviceBooking)
         {
             // int s_Id = serviceBooking.Service.Service_Id;
             // int t_Id = serviceBooking.ServiceTimings.Timing_Id;

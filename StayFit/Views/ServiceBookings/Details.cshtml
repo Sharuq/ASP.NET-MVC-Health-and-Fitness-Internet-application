@@ -4,23 +4,81 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
 }
+<style>
+    img:hover {
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+</style>
 <div class="container well">
 
-    <h1 style="font-size:45px;font-style:initial;font-family:Georgia; color:navy">Service Booking Details</h1>
+    <h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c">Service Booking Details</h1>
     <hr style="border-top: 1px solid #ccc; background: transparent;">
-    
+    @if (Model.BookingStatus == true)
+    {
+        <div class="row">
 
-    <h3 style="font-size:35px;font-style:oblique">Booking Id: @Html.DisplayFor(model => model.Booking_Id) </h3>
-    <h3 style="font-size:35px;font-style:oblique">Service Booked: @Html.DisplayFor(model => model.Service.SeviceName)</h3>
-    <h4 style="font-size:20px;font-style:italic"> @Html.DisplayFor(model => model.Service.ServiceDesc)</h4>
-    <h3 style="font-size:35px;font-style:oblique">Scheduled On:</h3>
-    <ul>
-        <li><h4 style="font-size:25px;font-style:italic">Booking Date: @Html.DisplayFor(model => model.BookingDate) </h4></li>
-        <li><h4 style="font-size:25px;font-style:italic">Timing: @Html.DisplayFor(model => model.ServiceTimings.Timing) </h4></li>
-    </ul>
-    <hr />
+            <div class="col-md-6">
+                @if (Model.Service.Service_Id == 1)
+                {
+                    <img src="~/Content/Images/yoga2.png" class="img-responsive img-rounded " />
+                }
+                @if (Model.Service.Service_Id == 2)
+                {
+                    <img src="~/Content/Images/boxing.png" class="img-responsive img-rounded " />
+                }
+                @if (Model.Service.Service_Id == 3)
+                {
+                    <img src="~/Content/Images/cardio4.png" class="img-responsive img-rounded " />
+                }
+                @if (Model.Service.Service_Id == 4)
+                {
+                    <img src="~/Content/Images/bodypump.png" class="img-responsive img-rounded " />
+                }
+                @if (Model.Service.Service_Id == 5)
+                {
+                    <img src="~/Content/Images/zumba5.png" class="img-responsive img-rounded " />
+                }
+                @if (Model.Service.Service_Id == 6)
+                {
+                    <img src="~/Content/Images/crsfit1.png" class="img-responsive img-rounded " />
+                }
+            </div>
+            <div class="col-md-6">
+                <div><h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:inline-block">Booking Id:  </h3> <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block">  @Html.DisplayFor(model => model.Booking_Id) </h3></div>
+
+                <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:inline-block">Service Booked:  </h3> <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block">  @Html.DisplayFor(model => model.Service.SeviceName)</h3>
+                <h4 style="font-size:20px; font-weight:100; font-family:Calibri"> @Html.DisplayFor(model => model.Service.ServiceDesc)</h4>
+                <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:block">Scheduled On:</h3>
+                <ul>
+                    <li><h4 style="font-size:20px;color:#18bc9c; display:inline-block">Booking Date:  </h4>   <h4 style="font-size:20px; font-weight:400; font-family:Calibri; display:inline-block">  @Html.DisplayFor(model => model.BookingDate) </h4></li>
+                    <li><h4 style="font-size:20px;color:#18bc9c; display:inline-block">Timing:  </h4>   <h4 style="font-size:20px; font-weight:400; font-family:Calibri;display:inline-block">  @Html.DisplayFor(model => model.ServiceTimings.Timing) </h4></li>
+                </ul>
+
+
+                <div class="text-center">
+                    <input type="button" value="Cancel Booking" class="btn btn-danger hover mt-20" name="deleteall" onclick="location.href='@Url.Action("CancelBooking", "ServiceBookings", new { id = Model.Booking_Id })'" />
+                    @Html.ActionLink("Cancel Booking", "CancelBooking", "ServiceBookings",new {classaa}, new { confirm = true, id = Model.Booking_Id },new { onclick = "return confirm('Do you really want to delete this product?')" })
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:darkcyan; display:inline-block">Booking is  been cancelled!!!!</h3>
+        </div>
+        <hr />
+        <h4 style="font-size:20px; font-weight:400;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            <span> <i class="glyphicon glyphicon-hand-right" style="color:darkcyan"></i> </span> @Html.ActionLink("Book New a Service", "Create")<span> <i class="glyphicon glyphicon-hand-right" style="color:darkcyan"></i> </span>
+        </h4>
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("input[name='deleteall']").click(function () {
+                return confirm('Delete all selected elements?');
+            });
+        });
+    </script>
 </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Booking_Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
