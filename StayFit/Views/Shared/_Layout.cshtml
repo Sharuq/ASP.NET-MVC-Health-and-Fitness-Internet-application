@@ -18,14 +18,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                <img src="~/Content/Images/logo.png" title="title" alt="additional title" width="90" height="30"/>
+                    <img src="~/Content/Images/newlogo.png" title="title" alt="additional title" width="110" height="40" style="padding-bottom:8px;"/>
                 </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Pricing", "Index", "Home", null, null, "pricing", new { id = "pricing" }, null)</li>
-                    <li>@Html.ActionLink("About", "Index", "Home", null, null, null,  new { id = "fh5co-footer" }, null)</li>
+                    <li>@Html.ActionLink("About", "Index", "Home", null, null, "pricing", new { id = "pricing" }, null)</li>
                     <li>@Html.ActionLink("Contact", "Index", "Home", null, null, "contact", new { id = "fh5co-footer" }, null)</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -35,8 +35,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        
-        <footer id="fh5co-footer" class="fh5co-bg"  role="contentinfo">
+
+        <footer id="fh5co-footer" class="fh5co-bg" role="contentinfo">
             <div class="overlay"></div>
             <div class="container" id="fh5co-footer1">
                 <div class="row row-pb-md">
@@ -46,13 +46,13 @@
                         <br />
                         @Html.ActionLink("Become A Member", "Register", "Account", null, new { @class = "btn btn-primary hover mt-20 " })
                     </div>
-                    <div class="col-md-8"  >
+                    <div class="col-md-8">
                         <h3>Our Classes</h3>
                         <div class="col-md-4 col-sm-4 col-xs-6">
                             <ul class="fh5co-footer-links">
                                 <li><a href="#">Cardio</a></li>
                                 <li><a href="#">Yoga</a></li>
-                                
+
                             </ul>
                         </div>
 
@@ -60,7 +60,7 @@
                             <ul class="fh5co-footer-links">
                                 <li><a href="#">Cross Fit</a></li>
                                 <li><a href="#">Personal Training</a></li>
-                                
+
                             </ul>
                         </div>
 
@@ -78,18 +78,29 @@
                     <div class="col-md-12 text-center">
                         <p>
                             <small class="block">&copy; 2018 . All Rights Reserved.</small>
-                            <small class="block">Designed by Sharuq. Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+                            <small class="block">Designed by Sharuq. Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash and Kisspng </a></small>
                         </p>
-                       
+
                     </div>
                 </div>
 
             </div>
         </footer>
     </div>
-    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script>
+        $(function () {
+            $('.date-picker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                maxDate: new Date(2001, 0, 1)
+            });
+        });
+    </script>
 </body>
 </html>

@@ -20,15 +20,16 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="@Url.Action("Index", "GymMembers")" class="navbar-brand">
-                    <img src="~/Content/Images/logo.png" title="title" alt="additional title" width="90" height="30" />
+                    <img src="~/Content/Images/newlogo.png" title="title" alt="additional title" width="110" height="40" style="padding-bottom:8px;"/>
                 </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "GymMembers")</li>
                     <li>@Html.ActionLink("Services", "Index", "GymMembers", null, null, "service", new { id = "service" }, null)</li>
-                    <li>@Html.ActionLink("UserProfile", "UserProfile", "GymMembers")</li>
-                    <li>@Html.ActionLink("Challenges", "Challenges", "Home")</li>
+                    <li>@Html.ActionLink("Profile", "UserProfile", "GymMembers")</li>
+                    <li>@Html.ActionLink("Bookings", "Index", "ServiceBookings")</li>
+                    <li>@Html.ActionLink("Forums", "Forum", "Forums")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -93,17 +94,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-
-    <script>
-        $(function () {
-            $('.date-picker').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                maxDate: new Date(2001, 0, 1)
-            });
-        });
-    </script>
+  
 
     <script>
         $(function () {

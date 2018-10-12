@@ -1,49 +1,16 @@
 ﻿
- .banner_area
-
-{
-    background: #04091e;
+.banner_area {
     position: relative;
-    z-index: 1;
-}
-
-    .banner_area .bg-parallax {
-        background-image: url('Images/3.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        opacity: 0.90;
-        width: 100%;
-        height: auto;
-    }
-
-
-    .banner_area .position {
-        width: 100%;
-        bottom: 0;
-        left: 0;
-        position: absolute;
-    }
-.banner_sec {
-    position: relative;
-    overflow: hidden;
+    background-image: url('Images/3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.90;
     width: 100%;
+    height: auto;
     min-height: 800px;
+    
 }
 
-.overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 125%;
-    bottom: 0;
-    z-index: -1;
-}
-.d_flex {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-}
 .banner_content {
     color: #fff;
     margin-bottom: 94px;

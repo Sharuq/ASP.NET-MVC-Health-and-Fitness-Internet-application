@@ -1,20 +1,19 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<section class="banner_area">
-    <div class="banner_sec d_flex align-items-center">
-        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
-        <div class="container">
-            <div class="banner_content text-center">
+<section class="banner_area img-responsive col-lg-1 col-md-12">
+  
+    <div class="banner_content text-center">
                 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 <h6>Be A Part Of StayFit &amp; Be Healthy </h6>
                 <h2>BEAT THE CHALLENGES &amp; STAY FIT!</h2>
                 <br /><br /><br /><br /><br />
                 @Html.ActionLink("Get Started", "Register", "Account", null, new { @class = "btn theme_btn_two button_hover" })
-            </div>
-        </div>
     </div>
+    
+
 </section>
+
 
 <!-- Start price Area -->
 <section id="pricing" class="price-area pt-100">
@@ -36,7 +35,7 @@
             <br>
         </div><!-- // End Container -->
         <br>
-        
+
         <div class="row">
             <div class="col-lg-4">
                 <div class="single-price">
@@ -128,4 +127,3 @@
     </div>
 </section>
 <!-- End price Area -->
-
