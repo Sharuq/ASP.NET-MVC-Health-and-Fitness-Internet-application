@@ -19,6 +19,13 @@ namespace StayFit.Controllers
         // GET: GymMembers
         public ActionResult Index()
         {
+            string id = User.Identity.GetUserId();
+            GymMember memberProfile = db.GymMember.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
+            if (memberProfile == null)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("Create");
+            }
             return View();
         }
 

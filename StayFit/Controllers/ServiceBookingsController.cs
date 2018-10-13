@@ -20,6 +20,13 @@ namespace StayFit.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            string id = User.Identity.GetUserId();
+            GymMember memberProfile = db.GymMember.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
+            if (memberProfile == null)
+            {
+                //return HttpNotFound();
+                return RedirectToAction("Create","GymMembers");
+            }
             var user = db.Users.Find(User.Identity.GetUserId());
             var serviceBookings = db.ServiceBooking.Where(m => m.ApplicationUser.Id == user.Id).ToList();
             return View(serviceBookings);

@@ -34,10 +34,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <h3 style="font-size:21px; font-weight:400;font-family:Helvetica; color:darkcyan; display:inline-block">Choose the Date</h3>
-                            <div class="col-md-10 input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar date-picker2"></i></span>
-                                @Html.EditorFor(model => model.BookingDate, new { htmlAttributes = new { @class = "form-control date-picker2" } })
+                            <div class="col-md-10">
+                                <h3 style="font-size:21px; font-weight:400;font-family:Helvetica; color:darkcyan; display:inline-block">Choose the Date: </h3>
+                                @Html.EditorFor(model => model.BookingDate, new { htmlAttributes = new { @class = "form-control date-picker2 " } })
                                 @Html.ValidationMessageFor(model => model.BookingDate, "", new { @class = "text-danger" })
                             </div>
                         </div>

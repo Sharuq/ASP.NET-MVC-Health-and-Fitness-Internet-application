@@ -25,7 +25,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "GymMembers")</li>
                     <li>@Html.ActionLink("Services", "Index", "GymMembers", null, null, "service", new { id = "service" }, null)</li>
                     <li>@Html.ActionLink("Bookings", "Index", "ServiceBookings")</li>
                     <li>@Html.ActionLink("Blogs", "Forum", "Forums")</li>
@@ -107,7 +106,7 @@
             });
         });
     </script>
-
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnCM_AbK-RDaBklplFHgXpEiKzlo0Yrlo&libraries=places&callback=activatePlacesSearch"></script>
 
 </body>
 </html>
