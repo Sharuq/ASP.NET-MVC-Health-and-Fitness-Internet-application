@@ -14,16 +14,12 @@ namespace StayFit.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: GymMembers
-        public ActionResult List()
-        {
-            return View();
-        }
+      
         
         // GET: GymMembers
         public ActionResult Index()
         {
-            return View(db.GymMember.ToList());
+            return View();
         }
 
         // GET: GymMembers/Details/5
@@ -47,13 +43,14 @@ namespace StayFit.Controllers
             string id = User.Identity.GetUserId();
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+               return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             GymMember memberProfile = db.GymMember.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
             if (memberProfile == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
+                return RedirectToAction("Create");
             }
             return View(memberProfile);
         }
@@ -72,7 +69,9 @@ namespace StayFit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Member_Id,FirstName,LastName,DateOfBirth,Address,Height,Weight,MembershipType")] GymMember gymMember)
         {
-            
+            gymMember.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
+            ModelState.Clear();
+            TryValidateModel(gymMember);
             if (ModelState.IsValid)
             {
                 gymMember.ApplicationUser = db.Users.Find(User.Identity.GetUserId());

@@ -49,7 +49,7 @@ namespace StayFit.Models
         public string MembershipType { get; set; }
 
 
-
+        [Required]
         public virtual ApplicationUser ApplicationUser { get; set; }
        
     }

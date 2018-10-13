@@ -15,6 +15,7 @@ namespace StayFit.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -76,10 +77,19 @@ namespace StayFit.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "GymMembers");
+                    ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
+
+                    if ((UserManager.IsInRole(user.Id, "Admin")))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    { return RedirectToAction("Index", "GymMembers"); }
+                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
