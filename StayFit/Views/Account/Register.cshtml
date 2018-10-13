@@ -1,10 +1,11 @@
-﻿@model StayFit.Models.RegisterViewModel
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
+﻿<div class="container">
+    @model StayFit.Models.RegisterViewModel
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
 
-    <h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c">Become a Member </h1>
-    <h3 style="font-size:22px; font-weight:200;font-family:Helvetica; color:#18bc9c; display:inline-block">Enter basic credentials</h3>
+        <h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c">Become a Member </h1>
+        <h3 style="font-size:22px; font-weight:200;font-family:Helvetica; color:#18bc9c; display:inline-block">Enter basic credentials</h3>
         <hr style="border-top: 1px solid #ccc; background: transparent;">
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
@@ -35,3 +36,4 @@
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
+</div>

@@ -5,88 +5,59 @@
     Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
 }
 
-<h2>Your Profile</h2>
+<h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c"> Your Profile</h1>
+<hr style="border-top: 1px solid #ccc; background: transparent;">
 
 
 
-<div>
-   
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+<div class="well">
+    <div>
+        <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:inline-block">@Html.DisplayNameFor(model => model.FirstName) :</h3>
+        <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block">@Html.DisplayFor(model => model.FirstName)</h3>
+    </div>
+    <div>
+        <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:inline-block"> @Html.DisplayNameFor(model => model.LastName) :</h3>
+        <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block">@Html.DisplayFor(model => model.LastName)</h3>
+    </div>
+    <div>
+        <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:inline-block"> @Html.DisplayNameFor(model => model.DateOfBirth) :</h3>
+        <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block">@Html.DisplayFor(model => model.DateOfBirth)</h3>
+    </div>
+    <div>
+        <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:inline-block"> @Html.DisplayNameFor(model => model.Address) :</h3>
+        <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block">@Html.DisplayFor(model => model.Address)</h3>
+    </div>
+    <div>
+        <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:inline-block">@Html.DisplayNameFor(model => model.Height) :</h3>
+        <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block">@Html.DisplayFor(model => model.Height)</h3>
+    </div>
+    <div>
+        <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:inline-block"> @Html.DisplayNameFor(model => model.Weight) :</h3>
+        <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block">@Html.DisplayFor(model => model.Weight)</h3>
+    </div>
+    <div>
+        <h3 style="font-size:25px; font-weight:400;font-family:Helvetica; color:#18bc9c; display:inline-block">@Html.DisplayNameFor(model => model.MembershipType) :</h3>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+        @if (Model.MembershipType.Equals("2"))
+        {
+            <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block"> STANDARD: A$50/Month </h3>
+        }
+        @if (Model.MembershipType.Equals("3"))
+        {
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+            <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block">  PREMIUM: A$80/Month </h3>
+        }
+        @if (Model.MembershipType.Equals("4"))
+        {
+            <h3 style="font-size:25px; font-weight:400;font-family:Calibri; display:inline-block"> PLATINUM: A$120/Month </h3>
+        }
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Height)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Height)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Weight)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Weight)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MembershipType)
-        </dt>
-
-        <dd>
-
-            @if (Model.MembershipType.Equals("2"))
-            {
-                <P> STANDARD: A$50/Month </P>
-            }
-            @if (Model.MembershipType.Equals("3"))
-            {
-
-                <P> PREMIUM: A$80/Month </P>
-            }
-            @if (Model.MembershipType.Equals("4"))
-            {
-
-                <P> PLATINUM: A$120/Month </P>
-            }
-
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Member_Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<hr style="border-top: 1px solid #ccc; background: transparent;">
+<div>
+    <h4 style="font-size:20px; font-weight:300;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        <span> <i class="glyphicon glyphicon-hand-left" style="color:darkcyan"></i> </span>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Member_Id }) |
+        @Html.ActionLink("Back to Services Page", "Index") <span> <i class="glyphicon glyphicon-hand-right" style="color:darkcyan"></i> </span>
+    </h4>
+</div>

@@ -1,10 +1,8 @@
 ﻿@model StayFit.Models.ServiceBooking
 
 @{
-                /**/
-
-                ViewBag.Title = "Create";
-                Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
+   ViewBag.Title = "Create";
+   Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
 }
 <div class="well">
     <h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:darkcyan">Service Booking</h1>
@@ -59,21 +57,22 @@
 
         </div>
     </div>
-</div>
-        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-        <script>
 
-            $(document).ready(function () {
-                $("#xx").change(function () {
-                    var item = this;
-                    $.get("/ServiceBookings/GetTimings", { Timing_Id: item.value }, function (data) {
-                        $("#yy").empty();
-                        $.each(data, function (index, row) {
-                            $("#yy").append("<option value='" + row.Timing_Id + "'>" + row.Timing + "</option>")
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script>
 
-                        });
+        $(document).ready(function () {
+            $("#xx").change(function () {
+                var item = this;
+                $.get("/ServiceBookings/GetTimings", { Timing_Id: item.value }, function (data) {
+                    $("#yy").empty();
+                    $.each(data, function (index, row) {
+                        $("#yy").append("<option value='" + row.Timing_Id + "'>" + row.Timing + "</option>")
+
                     });
-                })
-            });
-        </script>
+                });
+            })
+        });
+    </script>
 
+</div>

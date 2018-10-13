@@ -11,14 +11,22 @@ using Microsoft.AspNet.Identity;
 
 namespace StayFit.Controllers
 {
+    [Authorize]
     public class ServiceBookingsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ServiceBookings
+        [Authorize]
         public ActionResult Index()
         {
-            return View(db.ServiceBooking.ToList());
+            //ServiceBooking serviceBooking = new ServiceBooking();
+            //serviceBooking.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
+            //List<ServiceTimings> ServiceTimings = db.ServiceTimings.Where(x => x.Service.Service_Id == timing_id).ToList();
+            var user = db.Users.Find(User.Identity.GetUserId());
+            var serviceBookings = db.ServiceBooking.Where(m => m.ApplicationUser.Id == user.Id).ToList();
+            //return View(db.ServiceBooking.ToList());
+            return View(serviceBookings);
         }
 
         // GET: ServiceBookings/Details/5
