@@ -15,7 +15,6 @@ namespace StayFit.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -85,7 +84,7 @@ namespace StayFit.Controllers
 
                     if ((UserManager.IsInRole(user.Id, "Admin")))
                     {
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("GymMembersList", "Admin");
                     }
                     else
                     { return RedirectToAction("Index", "GymMembers"); }
@@ -432,6 +431,9 @@ namespace StayFit.Controllers
 
             base.Dispose(disposing);
         }
+
+
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

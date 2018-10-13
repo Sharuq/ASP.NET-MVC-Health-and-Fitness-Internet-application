@@ -1,6 +1,8 @@
-﻿using StayFit.Models;
+﻿using Microsoft.AspNet.Identity;
+using StayFit.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,13 +20,14 @@ namespace StayFit.Controllers
         {
             return View();
         }
+
         [Authorize(Roles = "Admin")]
         public ActionResult GymMembersList()
         {
                 return View(db.GymMember.ToList());
         }
-        // GET: Admin/Details/5
-        public ActionResult Details(int id)
+        // GET: Admin/GymMemberDetails/5
+        public ActionResult GymMemberDetails(int id)
         {
             if (id == null)
             {
@@ -60,48 +63,77 @@ namespace StayFit.Controllers
             }
         }
 
-        // GET: Admin/Edit/5
-        public ActionResult Edit(int id)
+        // GET:  Admin/GymMemberEdit/5
+        public ActionResult GymMemberEdit(int? id)
         {
-            return View();
+
+            ViewBag.MembershipType = new SelectList(db.MembershipType, "Membership_Id", "Membership_tier");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            GymMember gymMember = db.GymMember.Find(id);
+            if (gymMember == null)
+            {
+                return HttpNotFound();
+            }
+            return View(gymMember);
         }
 
-        // POST: Admin/Edit/5
+        // POST:  Admin/GymMemberEdit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult GymMemberEdit([Bind(Include = "Member_Id,FirstName,LastName,DateOfBirth,Address,Height,Weight,MembershipType")] GymMember gymMember)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var member_id = gymMember.Member_Id;
+            gymMember.ApplicationUser = db.GymMember.Where(p => p.Member_Id == member_id).Select(p => p.ApplicationUser).FirstOrDefault();
 
-                return RedirectToAction("Index");
-            }
-            catch
+
+            ModelState.Clear();
+            TryValidateModel(gymMember);
+
+            if (ModelState.IsValid)
             {
-                return View();
+                db.Entry(gymMember).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("GymMembersList");
             }
+            ViewBag.MembershipType = new SelectList(db.MembershipType, "Membership_Id", "Membership_tier");
+            return View(gymMember);
         }
 
-        // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
+
+
+
+        // GET: Admin/GymMemberDelete/5
+        public ActionResult GymMemberDelete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            GymMember gymMember = db.GymMember.Find(id);
+            if (gymMember == null)
+            {
+                return HttpNotFound();
+            }
+            return View(gymMember);
         }
 
-        // POST: Admin/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: Admin/GymMemberDelete/5
+        [HttpPost, ActionName("GymMemberDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            
+            GymMember gymMember = db.GymMember.Find(id);
+            var user = gymMember.ApplicationUser;
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("GymMembersList");
         }
+
     }
 }

@@ -530,8 +530,7 @@
     <Content Include="Views\Shared\Gym_Member_Layout.cshtml" />
     <Content Include="Views\GymMembers\Index.cshtml" />
     <Content Include="Views\GymMembers\Create.cshtml" />
-    <Content Include="Views\GymMembers\Delete.cshtml" />
-    <Content Include="Views\GymMembers\Details.cshtml" />
+    <Content Include="Views\Admin\GymMemberDelete.cshtml" />
     <Content Include="Views\GymMembers\Edit.cshtml" />
     <Content Include="Views\GymMembers\UserProfile.cshtml" />
     <Content Include="Views\ServiceBookings\Create.cshtml" />
@@ -539,10 +538,10 @@
     <Content Include="Views\ServiceBookings\Details.cshtml" />
     <Content Include="Views\ServiceBookings\Edit.cshtml" />
     <Content Include="Views\ServiceBookings\Index.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\Admin_Layout.cshtml" />
     <Content Include="Views\Admin\GymMembersList.cshtml" />
-    <Content Include="Views\Admin\Details.cshtml" />
+    <Content Include="Views\Admin\GymMemberDetails.cshtml" />
+    <Content Include="Views\Admin\GymMemberEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

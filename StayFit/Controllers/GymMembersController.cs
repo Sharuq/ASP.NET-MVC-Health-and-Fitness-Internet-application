@@ -22,20 +22,7 @@ namespace StayFit.Controllers
             return View();
         }
 
-        // GET: GymMembers/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            GymMember gymMember = db.GymMember.Find(id);
-            if (gymMember == null)
-            {
-                return HttpNotFound();
-            }
-            return View(gymMember);
-        }
+       
 
         // GET: GymMembers/UserProfile/
         public ActionResult UserProfile()
@@ -111,40 +98,21 @@ namespace StayFit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Member_Id,FirstName,LastName,DateOfBirth,Address,Height,Weight,MembershipType")] GymMember gymMember)
         {
+            gymMember.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
+            ModelState.Clear();
+            TryValidateModel(gymMember);
+
             if (ModelState.IsValid)
             {
                 db.Entry(gymMember).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.MembershipType = new SelectList(db.MembershipType, "Membership_Id", "Membership_tier");
             return View(gymMember);
         }
 
-        // GET: GymMembers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            GymMember gymMember = db.GymMember.Find(id);
-            if (gymMember == null)
-            {
-                return HttpNotFound();
-            }
-            return View(gymMember);
-        }
-
-        // POST: GymMembers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            GymMember gymMember = db.GymMember.Find(id);
-            db.GymMember.Remove(gymMember);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+      
 
         protected override void Dispose(bool disposing)
         {

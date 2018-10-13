@@ -1,15 +1,12 @@
 ﻿@model StayFit.Models.GymMember
 
 @{
-    ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
+    ViewBag.Title = "GymMemberDetails";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>GymMember</h4>
+    <h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c"> User Details</h1>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -65,17 +62,30 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MembershipType)
+
+            @if (Model.MembershipType.Equals("2"))
+            {
+                <p>STANDARD: A$50/Month </p>
+            }
+            @if (Model.MembershipType.Equals("3"))
+            {
+                <p>  PREMIUM: A$80/Month </p>
+            }
+            @if (Model.MembershipType.Equals("4"))
+            {
+                <p> PLATINUM: A$120/Month </p>
+            }
+
         </dd>
 
+
     </dl>
+</div>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+<hr style="border-top: 1px solid #ccc; background: transparent;">
+<div>
+    <h4 style="font-size:20px; font-weight:300;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        <span> <i class="glyphicon glyphicon-hand-left" style="color:darkcyan"></i> </span> @Html.ActionLink("Edit", "GymMemberEdit", new { id = Model.Member_Id }) |
+        @Html.ActionLink("Back to Users List", "GymMembersList") <span> <i class="glyphicon glyphicon-hand-right" style="color:darkcyan"></i> </span>
+    </h4>
 </div>
