@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <link href="~/Content/Style.css" rel="stylesheet" />
-
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -26,8 +26,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Users", "GymMembersList", "Admin")</li>
+                    <li>@Html.ActionLink("Tips and Posts", "PostsList", "Admin")</li>
+
                     <li>@Html.ActionLink("Bookings", "Index", "ServiceBookings")</li>
-                    <li>@Html.ActionLink("NewsLetters", "NewsLetters", "NewsLetters")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

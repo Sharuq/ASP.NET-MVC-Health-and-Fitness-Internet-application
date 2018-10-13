@@ -135,5 +135,59 @@ namespace StayFit.Controllers
             return RedirectToAction("GymMembersList");
         }
 
+        // GET: Posts list
+        public ActionResult PostsList()
+        {
+            return View(db.Posts.ToList());
+        }
+        // GET: PostMessages/Details/5
+        public ActionResult PostDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PostMessage postMessage = db.PostMessages.Find(id);
+            if (postMessage == null)
+            {
+                return HttpNotFound();
+            }
+            return View(postMessage);
+        }
+
+        // GET: Posts/Create
+        public ActionResult CreatePost()
+        {
+            return View();
+        }
+
+        // POST: Posts/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePost([Bind(Include = "post_title,post_message")] PostViewModel postViewModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                Post post = new Post();
+                PostMessage postMessage = new PostMessage();
+                post.Post_Title = postViewModel.post_title;
+                db.Posts.Add(post);
+                db.SaveChanges();
+                postMessage.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
+                postMessage.Post_Message = postViewModel.post_message;
+                postMessage.Post = post;
+                db.PostMessages.Add(postMessage);
+                db.SaveChanges();
+                return RedirectToAction("GymMembersList");
+            }
+
+            return View(postViewModel);
+        }
+
+
+
     }
 }
