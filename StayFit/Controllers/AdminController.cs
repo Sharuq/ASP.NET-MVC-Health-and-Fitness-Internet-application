@@ -138,7 +138,7 @@ namespace StayFit.Controllers
         // GET: Posts list
         public ActionResult PostsList()
         {
-            return View(db.Posts.ToList());
+            return View(db.PostMessages.ToList());
         }
         // GET: PostMessages/Details/5
         public ActionResult PostDetails(int? id)
@@ -181,12 +181,95 @@ namespace StayFit.Controllers
                 postMessage.Post = post;
                 db.PostMessages.Add(postMessage);
                 db.SaveChanges();
-                return RedirectToAction("GymMembersList");
+                return RedirectToAction("PostsList");
             }
 
             return View(postViewModel);
         }
 
+        // GET: Posts/Delete/5
+        public ActionResult DeletePost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+
+        // POST: Posts/Delete/5
+        [HttpPost, ActionName("DeletePost")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePostConfirmed(int id)
+        {
+            Post post = db.Posts.Find(id);
+            db.Posts.Remove(post);
+            db.SaveChanges();
+            return RedirectToAction("PostsList");
+        }
+
+
+        // GET: PostMessages/Edit/5
+        public ActionResult EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PostMessage postMessage = db.PostMessages.Find(id);
+            if (postMessage == null)
+            {
+                return HttpNotFound();
+            }
+            PostMessageViewModel postMessageViewModel = new PostMessageViewModel();
+            postMessageViewModel.post_message_id = postMessage.Post_Message_Id;
+            postMessageViewModel.post_message = postMessage.Post_Message;
+            int message_id = postMessage.Post_Message_Id;
+            int post_id = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post.Post_Id).FirstOrDefault();
+            Post post = db.Posts.Find(post_id);
+            //post.Post_Title = postMessageViewModel.post_title;
+            postMessageViewModel.post_title = post.Post_Title;
+            
+
+            return View(postMessageViewModel);
+        }
+
+        // POST: PostMessages/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost([Bind(Include = "post_title,post_message,post_message_id")] PostMessageViewModel postMessageViewModel)
+        {
+            int message_id = postMessageViewModel.post_message_id;
+            
+            if (ModelState.IsValid)
+            {
+                PostMessage postMessage = new PostMessage();
+                postMessage.Post_Message = postMessageViewModel.post_message;
+                postMessage.Post_Message_Id = postMessageViewModel.post_message_id;
+                postMessage.ApplicationUser= db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.ApplicationUser).FirstOrDefault();
+                postMessage.Post = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post).FirstOrDefault();
+
+                db.Entry(postMessage).State = EntityState.Modified;
+                db.SaveChanges();
+                int post_id = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post.Post_Id).FirstOrDefault();
+                Post post = db.Posts.Find(post_id);
+                post.Post_Title = postMessageViewModel.post_title;
+                db.Entry(post).State = EntityState.Modified;
+                db.SaveChanges();
+
+
+
+                return RedirectToAction("PostsList");
+            }
+            return View(postMessageViewModel);
+        }
 
 
     }

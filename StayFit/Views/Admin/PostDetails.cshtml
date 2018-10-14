@@ -5,28 +5,16 @@
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c"> View Discussion</h1>
 
-<div>
-    <h4>Post Message</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Post.Post_Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Post.Post_Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_Message)
-        </dt>
-         <dd>
-            @Html.DisplayFor(model => model.Post_Message)
-        </dd>
 
-    </dl>
+<div class="container well">
+    <h3 style="font-size:25px; font-weight:200;font-family:Helvetica; display:inline-block">@Html.DisplayFor(model => model.Post.Post_Title)</h3>
+    <div class="well">
+        @*Html.DisplayFor(model => model.Post_Message)*@
+        @Html.Raw(Model.Post_Message)
+    </div>
+    <span> <i class="glyphicon glyphicon-hand-left" style="color:darkcyan"></i> </span>@Html.ActionLink("Edit", "EditPost", new { id = Model.Post_Message_Id }) |
+    @Html.ActionLink("Back to Discussion Board", "PostsList")<span> <i class="glyphicon glyphicon-hand-right" style="color:darkcyan"></i> </span>
+    <br />
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Post_Message_Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

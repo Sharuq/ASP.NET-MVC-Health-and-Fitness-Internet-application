@@ -1,0 +1,40 @@
+﻿@model StayFit.Models.Post
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c">Delete Discussion</h1>
+<h3 style="font-size:22px; font-weight:200;font-family:Helvetica; color:#18bc9c; display:inline-block">Are you sure you want to delete this discussion?</h3>
+<hr style="border-top: 1px solid #ccc; background: transparent;">
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            Discussion Title
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_Title)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions" style="padding-left:50px">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+        <br />
+        <div>
+            <h3 style="font-size:22px; font-weight:200;font-family:Helvetica; color:#18bc9c; display:inline-block">
+                <span> <i class="glyphicon glyphicon-hand-left" style="color:darkcyan"></i> </span>@Html.ActionLink("Back to Discussion Board", "PostsList") <span> <i class="glyphicon glyphicon-hand-left" style="color:darkcyan"></i> </span>
+            </h3>
+
+        </div>
+    }
+</div>

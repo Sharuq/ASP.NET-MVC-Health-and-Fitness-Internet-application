@@ -1,34 +1,39 @@
-﻿@model IEnumerable<StayFit.Models.Post>
+﻿@model IEnumerable<StayFit.Models.PostMessage>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c"> Disscussion Board</h1>
+<hr style="border-top: 1px solid #ccc; background: transparent;">
 
-<p>
-    @Html.ActionLink("Create New", "CreatePost")
-</p>
-<table class="table">
-    <tr>
+<table class="table table-striped table-responsive table-hover">
+    <tr style="background-color:#18bc9c;height:20px">
         <th>
-            @Html.DisplayNameFor(model => model.Post_Title)
+            Discussion Title
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Post_Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Post_Id }) |
-            @Html.ActionLink("Details", "PostDetails", new { id=item.Post_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Post_Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post.Post_Title)
+            </td>
+            <td>
+                @Html.ActionLink("Edit Discussions", "EditPost", new { id = item.Post_Message_Id }) |
+                @Html.ActionLink("View Discussions", "PostDetails", new { id = item.Post_Message_Id }) |
+                @Html.ActionLink("Delete Discussions", "DeletePost", new { id = item.Post.Post_Id })
+            </td>
+        </tr>
+    }
 
 </table>
+<br /><br />
+<hr />
+
+<h3 style="font-size:22px; font-weight:200;font-family:Helvetica; color:#18bc9c; display:inline-block">
+    <span> <i class="glyphicon glyphicon-hand-right" style="color:darkcyan"></i> </span> @Html.ActionLink("Create New Discussion", "CreatePost") <span> <i class="glyphicon glyphicon-hand-right" style="color:darkcyan"></i> </span>
+</h3>

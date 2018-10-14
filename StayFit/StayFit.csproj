@@ -324,6 +324,7 @@
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostMessage.cs" />
     <Compile Include="Models\PaymentGateway.cs" />
+    <Compile Include="Models\PostMessageViewModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceBooking.cs" />
@@ -713,6 +714,8 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Admin\PostDetails.cshtml" />
+    <Content Include="Views\Admin\DeletePost.cshtml" />
+    <Content Include="Views\Admin\EditPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

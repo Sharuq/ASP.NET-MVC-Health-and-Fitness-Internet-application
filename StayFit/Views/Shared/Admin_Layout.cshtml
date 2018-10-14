@@ -19,16 +19,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="@Url.Action("Index", "Admin")" class="navbar-brand">
+                <a href="@Url.Action("GymMembersList", "Admin")" class="navbar-brand">
                     <img src="~/Content/Images/newlogo.png" title="title" alt="additional title" width="110" height="40" style="padding-bottom:8px;" />
                 </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Users", "GymMembersList", "Admin")</li>
-                    <li>@Html.ActionLink("Tips and Posts", "PostsList", "Admin")</li>
-
-                    <li>@Html.ActionLink("Bookings", "Index", "ServiceBookings")</li>
+                    <li>@Html.ActionLink("Gym Members", "GymMembersList", "Admin")</li>
+                    <li>@Html.ActionLink("Discussion Board", "PostsList", "Admin")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
