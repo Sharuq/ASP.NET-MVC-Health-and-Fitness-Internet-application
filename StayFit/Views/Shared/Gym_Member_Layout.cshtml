@@ -7,7 +7,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-     <link href="~/Content/Style.css" rel="stylesheet" />
+    <link href="~/Content/Style.css" rel="stylesheet" />
+
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
 
 </head>
 <body>
@@ -27,7 +29,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Services", "Index", "GymMembers", null, null, "service", new { id = "service" }, null)</li>
                     <li>@Html.ActionLink("Bookings", "Index", "ServiceBookings")</li>
-                    <li>@Html.ActionLink("Blogs", "Forum", "Forums")</li>
+                    <li>@Html.ActionLink("Discussion Board", "MemberPostsList", "GymMembers")</li>
                     <li>@Html.ActionLink("Profile", "UserProfile", "GymMembers")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

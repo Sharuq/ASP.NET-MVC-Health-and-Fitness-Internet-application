@@ -324,6 +324,7 @@
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostMessage.cs" />
     <Compile Include="Models\PaymentGateway.cs" />
+    <Compile Include="Models\PostMessageDetailsViewModel.cs" />
     <Compile Include="Models\PostMessageViewModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\Service.cs" />
@@ -716,6 +717,9 @@
     <Content Include="Views\Admin\PostDetails.cshtml" />
     <Content Include="Views\Admin\DeletePost.cshtml" />
     <Content Include="Views\Admin\EditPost.cshtml" />
+    <Content Include="Views\GymMembers\MemberPostsList.cshtml" />
+    <Content Include="Views\GymMembers\MemberPostDetails.cshtml" />
+    <Content Include="Views\GymMembers\MemberCreatePost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

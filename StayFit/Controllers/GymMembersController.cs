@@ -129,5 +129,65 @@ namespace StayFit.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        // GET: Posts list
+        public ActionResult MemberPostsList()
+        {
+            return View(db.Posts.ToList());
+        }
+
+
+        // GET: PostMessages/Details/5
+        
+        public ActionResult MemberPostDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.Posts.Find(id);
+            PostMessageDetailsViewModel postMessageDetailsViewModel = new PostMessageDetailsViewModel();
+            var postMessage = db.PostMessages.Where(m => m.Post.Post_Id == id).ToList();
+            postMessageDetailsViewModel.postMessages = postMessage;
+            postMessageDetailsViewModel.post_id = post.Post_Id;
+            if (postMessageDetailsViewModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(postMessageDetailsViewModel);
+        }
+
+
+        // POST: Posts/Detials
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult MemberPostDetails([Bind(Include = "post_message")] PostMessageDetailsViewModel postMessageDetailsViewModel,string btn)
+        {
+
+            if (ModelState.IsValid)
+            {
+                int post_id = Convert.ToInt32(btn);
+                //string msgg = postMessageDetailsViewModel.post_message;
+                //Post post = new Post();
+                PostMessage postMessage = new PostMessage();
+                //post.Post_Title = postViewModel.post_title;
+                //db.Posts.Add(post);
+                //db.SaveChanges();
+                postMessage.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
+                postMessage.Post_Message = postMessageDetailsViewModel.post_message;
+                Post post = db.Posts.Find(post_id);
+                postMessage.Post = post;
+                db.PostMessages.Add(postMessage);
+                db.SaveChanges();
+                return RedirectToAction("MemberPostsList");
+            }
+
+            return View(postMessageDetailsViewModel);
+        }
     }
 }

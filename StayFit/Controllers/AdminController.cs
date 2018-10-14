@@ -41,28 +41,7 @@ namespace StayFit.Controllers
             return View(gymMember);
         }
 
-        // GET: Admin/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Admin/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+        
         // GET:  Admin/GymMemberEdit/5
         public ActionResult GymMemberEdit(int? id)
         {
@@ -140,6 +119,9 @@ namespace StayFit.Controllers
         {
             return View(db.PostMessages.ToList());
         }
+
+
+
         // GET: PostMessages/Details/5
         public ActionResult PostDetails(int? id)
         {
