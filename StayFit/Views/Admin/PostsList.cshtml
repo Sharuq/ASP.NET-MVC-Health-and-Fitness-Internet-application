@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StayFit.Models.PostMessage>
+﻿@model IEnumerable<StayFit.Models.Post>
 
 @{
     ViewBag.Title = "Index";
@@ -20,12 +20,11 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Post.Post_Title)
+                @Html.DisplayFor(modelItem => item.Post_Title)
             </td>
             <td>
-                @Html.ActionLink("Edit Discussions", "EditPost", new { id = item.Post_Message_Id }) |
-                @Html.ActionLink("View Discussions", "PostDetails", new { id = item.Post_Message_Id }) |
-                @Html.ActionLink("Delete Discussions", "DeletePost", new { id = item.Post.Post_Id })
+                @Html.ActionLink("View Discussions", "PostDetails", new { id = item.Post_Id }) |
+                @Html.ActionLink("Delete Discussions", "DeletePost", new { id = item.Post_Id })
             </td>
         </tr>
     }

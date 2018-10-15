@@ -97,7 +97,15 @@
 
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
-
+    <script>
+        $(function () {
+            $('.date-picker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                maxDate: new Date(2001, 0, 1)
+            });
+        });
+    </script>
 
     <script>
         $(function () {

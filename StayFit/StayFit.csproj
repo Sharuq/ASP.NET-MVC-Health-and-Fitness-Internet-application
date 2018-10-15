@@ -197,8 +197,6 @@
     <Compile Include="Controllers\GymMembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PostMessagesController.cs" />
-    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ServiceBookingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -694,18 +692,8 @@
     <Content Include="Views\Admin\GymMembersList.cshtml" />
     <Content Include="Views\Admin\GymMemberDetails.cshtml" />
     <Content Include="Views\Admin\GymMemberEdit.cshtml" />
-    <Content Include="Views\Posts\Create.cshtml" />
-    <Content Include="Views\Posts\Delete.cshtml" />
-    <Content Include="Views\Posts\Details.cshtml" />
-    <Content Include="Views\Posts\Edit.cshtml" />
-    <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Admin\CreatePost.cshtml" />
     <Content Include="Views\Admin\PostsList.cshtml" />
-    <Content Include="Views\PostMessages\Create.cshtml" />
-    <Content Include="Views\PostMessages\Delete.cshtml" />
-    <Content Include="Views\PostMessages\Details.cshtml" />
-    <Content Include="Views\PostMessages\Edit.cshtml" />
-    <Content Include="Views\PostMessages\Index.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
