@@ -39,5 +39,8 @@ namespace StayFit.Models
 
         public System.Data.Entity.DbSet<StayFit.Models.Post> Posts { get; set; }
         public System.Data.Entity.DbSet<StayFit.Models.PostMessage> PostMessages { get; set; }
+
+        public System.Data.Entity.DbSet<StayFit.Models.Image> Images { get; set; }
+
     }
 }

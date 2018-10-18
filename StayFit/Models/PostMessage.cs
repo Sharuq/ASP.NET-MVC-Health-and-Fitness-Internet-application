@@ -22,5 +22,7 @@ namespace StayFit.Models
 
         [Required]
         public virtual Post Post { get; set; }
+
+        public virtual Image Image { get; set; }
     }
 }

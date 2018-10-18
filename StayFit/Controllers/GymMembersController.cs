@@ -192,19 +192,34 @@ namespace StayFit.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult MemberPostDetails([Bind(Include = "post_message")] PostMessageDetailsViewModel postMessageDetailsViewModel,string btn)
+        public ActionResult MemberPostDetails([Bind(Include = "post_message")] PostMessageDetailsViewModel postMessageDetailsViewModel,string btn, HttpPostedFileBase postedFile)
         {
             CaptchaResponse response = ValidateCaptcha(Request["g-recaptcha-response"]);
             if (response.Success)
             {
+                //ModelState.Clear();
+                var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid());
+                //postMessageDetailsViewModel.postMessage.Image.Image_Path = myUniqueFileName;
+                //TryValidateModel(image);
+
                 if (ModelState.IsValid)
                 {
                     int post_id = Convert.ToInt32(btn);
                     PostMessage postMessage = new PostMessage();
+                    Image image = new Image();
                     postMessage.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
                     postMessage.Post_Message = postMessageDetailsViewModel.post_message;
                     Post post = db.Posts.Find(post_id);
                     postMessage.Post = post;
+                    image.Image_Path = myUniqueFileName;
+                    string serverPath = Server.MapPath("~/Uploads/");
+                    string fileExtension = Path.GetExtension(postedFile.FileName);
+                    string filePath = image.Image_Path + fileExtension;
+                    image.Image_Path = filePath;
+                    postedFile.SaveAs(serverPath + image.Image_Path);
+                    db.Images.Add(image);
+                    db.SaveChanges();
+                    postMessage.Image = image;
                     db.PostMessages.Add(postMessage);
                     db.SaveChanges();
                     return RedirectToAction("MemberPostDetails");

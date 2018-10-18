@@ -335,9 +335,22 @@
     <Compile Include="Migrations\201810180706279_new21.Designer.cs">
       <DependentUpon>201810180706279_new21.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810181053213_new22.cs" />
+    <Compile Include="Migrations\201810181053213_new22.Designer.cs">
+      <DependentUpon>201810181053213_new22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810181055173_new23.cs" />
+    <Compile Include="Migrations\201810181055173_new23.Designer.cs">
+      <DependentUpon>201810181055173_new23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810181056319_new24.cs" />
+    <Compile Include="Migrations\201810181056319_new24.Designer.cs">
+      <DependentUpon>201810181056319_new24.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\GymMember.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -658,6 +671,8 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Email_Template\Email_Contents.html" />
+    <Content Include="Uploads\0b1a98c3-ae2d-4999-9143-949a4dc9a777.PNG" />
+    <Content Include="Uploads\92614aca-c229-4ce6-b5b2-80f5d55f3eab.PNG" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -834,6 +849,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810180706279_new21.resx">
       <DependentUpon>201810180706279_new21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810181053213_new22.resx">
+      <DependentUpon>201810181053213_new22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810181055173_new23.resx">
+      <DependentUpon>201810181055173_new23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810181056319_new24.resx">
+      <DependentUpon>201810181056319_new24.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
