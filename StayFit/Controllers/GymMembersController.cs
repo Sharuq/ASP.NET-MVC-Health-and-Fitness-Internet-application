@@ -7,7 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StayFit.Models;
+using StayFit.Common;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
+using System.IO;
+
 namespace StayFit.Controllers
 {   [Authorize]
     public class GymMembersController : Controller
@@ -72,6 +76,16 @@ namespace StayFit.Controllers
                 
                 db.GymMember.Add(gymMember);
                 db.SaveChanges();
+                String toEmail = gymMember.ApplicationUser.Email;
+                String subject = "StayFit Registeration Confirmation";
+                String contents = String.Empty;
+                using (StreamReader reader = new StreamReader(Server.MapPath("~/Email_Template/Email_Contents.html")))
+                {
+                    contents = reader.ReadToEnd();
+                }
+                
+                EmailSender es = new EmailSender();
+                es.Send(toEmail, subject, contents);
                 return RedirectToAction("Index");
             }
             ViewBag.MembershipType = new SelectList(db.MembershipType, "Membership_Id", "Membership_tier");
@@ -119,7 +133,18 @@ namespace StayFit.Controllers
             return View(gymMember);
         }
 
-      
+        /// <summary>  
+        /// Validate Captcha  
+        /// </summary>  
+        /// <param name="response"></param>  
+        /// <returns></returns>  
+        public static CaptchaResponse ValidateCaptcha(string response)
+        {
+            string secret = System.Web.Configuration.WebConfigurationManager.AppSettings["recaptchaPrivateKey"];
+            var client = new WebClient();
+            var jsonResult = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response));
+            return JsonConvert.DeserializeObject<CaptchaResponse>(jsonResult.ToString());
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -143,6 +168,7 @@ namespace StayFit.Controllers
         
         public ActionResult MemberPostDetails(int? id)
         {
+           
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -168,26 +194,27 @@ namespace StayFit.Controllers
         [ValidateInput(false)]
         public ActionResult MemberPostDetails([Bind(Include = "post_message")] PostMessageDetailsViewModel postMessageDetailsViewModel,string btn)
         {
-
-            if (ModelState.IsValid)
+            CaptchaResponse response = ValidateCaptcha(Request["g-recaptcha-response"]);
+            if (response.Success)
             {
-                int post_id = Convert.ToInt32(btn);
-                //string msgg = postMessageDetailsViewModel.post_message;
-                //Post post = new Post();
-                PostMessage postMessage = new PostMessage();
-                //post.Post_Title = postViewModel.post_title;
-                //db.Posts.Add(post);
-                //db.SaveChanges();
-                postMessage.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
-                postMessage.Post_Message = postMessageDetailsViewModel.post_message;
-                Post post = db.Posts.Find(post_id);
-                postMessage.Post = post;
-                db.PostMessages.Add(postMessage);
-                db.SaveChanges();
-                return RedirectToAction("MemberPostsList");
+                if (ModelState.IsValid)
+                {
+                    int post_id = Convert.ToInt32(btn);
+                    PostMessage postMessage = new PostMessage();
+                    postMessage.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
+                    postMessage.Post_Message = postMessageDetailsViewModel.post_message;
+                    Post post = db.Posts.Find(post_id);
+                    postMessage.Post = post;
+                    db.PostMessages.Add(postMessage);
+                    db.SaveChanges();
+                    return RedirectToAction("MemberPostDetails");
+                }
+                else { return View(postMessageDetailsViewModel); }
             }
-
-            return View(postMessageDetailsViewModel);
+            else
+            {
+                return Content("Error From Google ReCaptcha : " + response.ErrorMessage[0].ToString());
+            }
         }
     }
 }

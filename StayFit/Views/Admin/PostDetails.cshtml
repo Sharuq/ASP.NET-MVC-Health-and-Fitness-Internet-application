@@ -2,7 +2,7 @@
 @model StayFit.Models.PostMessageDetailsViewModel
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/Gym_Member_Layout.cshtml";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 <br /><br />
 <span style="font-size:20px;color:#18bc9c"> <i class="glyphicon glyphicon-hand-left" style="color:darkcyan"></i> @Html.ActionLink("Back to Discussion Board", "PostsList")</span>
@@ -21,10 +21,6 @@
             @*Html.DisplayFor(modelItem => item.Post_Message)*@
             @Html.Raw(item.Post_Message)
             <br />
-            <div style="text-align:left;">
-                <span style="font-weight:900;"> <i class="glyphicon glyphicon-thumbs-up" style="color:darkcyan"></i>Like</span>&nbsp;&nbsp;&nbsp;
-                <span style="font-weight:900;"> <i class="glyphicon glyphicon-thumbs-down" style="color:darkcyan"></i>Dislike</span>
-            </div>
             <div style="text-align:right;">
                 <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>
             </div>
@@ -41,10 +37,6 @@
             @*Html.DisplayFor(modelItem => item.Post_Message)*@
             @Html.Raw(item.Post_Message)
             <br />
-            <div style="text-align:left;">
-                <span style="font-weight:900;"> <i class="glyphicon glyphicon-thumbs-up" style="color:darkcyan"></i>Like</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style="font-weight:900;"> <i class="glyphicon glyphicon-thumbs-down" style="color:darkcyan"></i>Dislike</span>
-            </div>
             <div style="text-align:right;">
                 <br />
                 <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>

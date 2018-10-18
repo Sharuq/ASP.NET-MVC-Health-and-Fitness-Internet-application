@@ -49,7 +49,7 @@
                 <br />
                 <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>
             </div>
-            
+
         </div>
     }
 }
@@ -83,6 +83,7 @@
                             @Html.ValidationMessageFor(model => model.post_message, "", new { @class = "text-danger" })
 
                         </div>
+                        <div class="g-recaptcha" data-sitekey="6LfGnHUUAAAAABjYFi2Uhs9XCJKaxjSRtVLTewC1"></div>
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">

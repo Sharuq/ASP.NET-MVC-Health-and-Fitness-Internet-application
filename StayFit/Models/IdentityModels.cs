@@ -31,7 +31,6 @@ namespace StayFit.Models
         }
 
         public System.Data.Entity.DbSet<StayFit.Models.GymMember> GymMember { get; set; }
-        public System.Data.Entity.DbSet<StayFit.Models.PaymentGateway> PaymentGateway { get; set; }
         public System.Data.Entity.DbSet<StayFit.Models.MembershipType> MembershipType { get; set; }
 
         public System.Data.Entity.DbSet<StayFit.Models.Service> Service { get; set; }
