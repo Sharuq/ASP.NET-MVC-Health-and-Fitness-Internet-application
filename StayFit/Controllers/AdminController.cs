@@ -3,6 +3,7 @@ using StayFit.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 
 namespace StayFit.Controllers
 {
-    
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -185,8 +186,16 @@ namespace StayFit.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePost([Bind(Include = "post_title,post_message")] PostViewModel postViewModel)
+        public ActionResult CreatePost([Bind(Include = "post_title,post_message")] PostViewModel postViewModel, HttpPostedFileBase postedFile)
         {
+            var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid());
+            Image image = new Image();
+            image.Image_Path = myUniqueFileName;
+            string serverPath = Server.MapPath("~/Uploads/");
+            string fileExtension = Path.GetExtension(postedFile.FileName);
+            string filePath = image.Image_Path + fileExtension;
+            image.Image_Path = filePath;
+            
 
             if (ModelState.IsValid)
             {
@@ -198,6 +207,10 @@ namespace StayFit.Controllers
                 postMessage.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
                 postMessage.Post_Message = postViewModel.post_message;
                 postMessage.Post = post;
+                postedFile.SaveAs(serverPath + image.Image_Path);
+                db.Images.Add(image);
+                db.SaveChanges();
+                postMessage.Image = image;
                 db.PostMessages.Add(postMessage);
                 db.SaveChanges();
                 return RedirectToAction("PostsList");
@@ -232,9 +245,8 @@ namespace StayFit.Controllers
             return RedirectToAction("PostsList");
         }
 
-
-        // GET: PostMessages/Edit/5
-        public ActionResult EditPost(int? id)
+        // GET: Posts/DisapprovePostMessage/5
+        public ActionResult DisapprovePostMessage(int? id)
         {
             if (id == null)
             {
@@ -245,49 +257,19 @@ namespace StayFit.Controllers
             {
                 return HttpNotFound();
             }
-            PostMessageViewModel postMessageViewModel = new PostMessageViewModel();
-            postMessageViewModel.post_message_id = postMessage.Post_Message_Id;
-            postMessageViewModel.post_message = postMessage.Post_Message;
-            int message_id = postMessage.Post_Message_Id;
-            int post_id = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post.Post_Id).FirstOrDefault();
-            Post post = db.Posts.Find(post_id);
-            //post.Post_Title = postMessageViewModel.post_title;
-            postMessageViewModel.post_title = post.Post_Title;
-            
-
-            return View(postMessageViewModel);
+            return View(postMessage);
         }
 
-        // POST: PostMessages/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        // POST: Posts/DisapprovePostMessage/5
+        [HttpPost, ActionName("DisapprovePostMessage")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost([Bind(Include = "post_title,post_message,post_message_id")] PostMessageViewModel postMessageViewModel)
+        public ActionResult DisapprovePostMessageConfirmed(int id)
         {
-            int message_id = postMessageViewModel.post_message_id;
-            
-            if (ModelState.IsValid)
-            {
-                PostMessage postMessage = new PostMessage();
-                postMessage.Post_Message = postMessageViewModel.post_message;
-                postMessage.Post_Message_Id = postMessageViewModel.post_message_id;
-                postMessage.ApplicationUser= db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.ApplicationUser).FirstOrDefault();
-                postMessage.Post = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post).FirstOrDefault();
-
-                db.Entry(postMessage).State = EntityState.Modified;
-                db.SaveChanges();
-                int post_id = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post.Post_Id).FirstOrDefault();
-                Post post = db.Posts.Find(post_id);
-                post.Post_Title = postMessageViewModel.post_title;
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
-
-
-
-                return RedirectToAction("PostsList");
-            }
-            return View(postMessageViewModel);
+            PostMessage postMessage = db.PostMessages.Find(id);
+            postMessage.Message_Status = true;
+            db.Entry(postMessage).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("PostsList");
         }
 
 

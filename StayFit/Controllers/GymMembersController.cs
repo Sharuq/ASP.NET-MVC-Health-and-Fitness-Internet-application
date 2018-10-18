@@ -197,11 +197,8 @@ namespace StayFit.Controllers
             CaptchaResponse response = ValidateCaptcha(Request["g-recaptcha-response"]);
             if (response.Success)
             {
-                //ModelState.Clear();
                 var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid());
-                //postMessageDetailsViewModel.postMessage.Image.Image_Path = myUniqueFileName;
-                //TryValidateModel(image);
-
+               
                 if (ModelState.IsValid)
                 {
                     int post_id = Convert.ToInt32(btn);
@@ -211,15 +208,20 @@ namespace StayFit.Controllers
                     postMessage.Post_Message = postMessageDetailsViewModel.post_message;
                     Post post = db.Posts.Find(post_id);
                     postMessage.Post = post;
-                    image.Image_Path = myUniqueFileName;
-                    string serverPath = Server.MapPath("~/Uploads/");
-                    string fileExtension = Path.GetExtension(postedFile.FileName);
-                    string filePath = image.Image_Path + fileExtension;
-                    image.Image_Path = filePath;
-                    postedFile.SaveAs(serverPath + image.Image_Path);
-                    db.Images.Add(image);
-                    db.SaveChanges();
-                    postMessage.Image = image;
+                    if (postedFile != null)
+                    {
+                        image.Image_Path = myUniqueFileName;
+                        string serverPath = Server.MapPath("~/Uploads/");
+                        string fileExtension = Path.GetExtension(postedFile.FileName);
+                        string filePath = image.Image_Path + fileExtension;
+                        image.Image_Path = filePath;
+                        postedFile.SaveAs(serverPath + image.Image_Path);
+                        db.Images.Add(image);
+                        db.SaveChanges();
+                        postMessage.Image = image;
+                    }
+                    
+                    
                     db.PostMessages.Add(postMessage);
                     db.SaveChanges();
                     return RedirectToAction("MemberPostDetails");
@@ -230,6 +232,89 @@ namespace StayFit.Controllers
             {
                 return Content("Error From Google ReCaptcha : " + response.ErrorMessage[0].ToString());
             }
+        }
+
+
+
+
+        // GET: Posts/Delete/5
+        public ActionResult DeletePostMessage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PostMessage postMessage = db.PostMessages.Find(id);
+            if (postMessage == null)
+            {
+                return HttpNotFound();
+            }
+            return View(postMessage);
+        }
+
+        // POST: Posts/Delete/5
+        [HttpPost, ActionName("DeletePostMessage")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePostMessageConfirmed(int id)
+        {
+            PostMessage postMessage = db.PostMessages.Find(id);
+            db.PostMessages.Remove(postMessage);
+            db.SaveChanges();
+            return RedirectToAction("MemberPostsList");
+        }
+
+
+
+        // GET: PostMessages/Edit/5
+        public ActionResult EditPostMessage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PostMessage postMessage = db.PostMessages.Find(id);
+            if (postMessage == null)
+            {
+                return HttpNotFound();
+            }
+            PostMessageViewModel postMessageViewModel = new PostMessageViewModel();
+            postMessageViewModel.post_message_id = postMessage.Post_Message_Id;
+            postMessageViewModel.post_message = postMessage.Post_Message;
+            int message_id = postMessage.Post_Message_Id;
+            int post_id = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post.Post_Id).FirstOrDefault();
+            Post post = db.Posts.Find(post_id);
+            //post.Post_Title = postMessageViewModel.post_title;
+            postMessageViewModel.post_title = post.Post_Title;
+
+
+            return View(postMessageViewModel);
+        }
+
+        // POST: PostMessages/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPostMessage([Bind(Include = "post_title,post_message,post_message_id")] PostMessageViewModel postMessageViewModel)
+        {
+            int message_id = postMessageViewModel.post_message_id;
+            
+            PostMessage postMessage = new PostMessage();
+            postMessage.Post_Message = postMessageViewModel.post_message;
+            postMessage.Post_Message_Id = postMessageViewModel.post_message_id;
+            postMessage.ApplicationUser = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.ApplicationUser).FirstOrDefault();
+            postMessage.Post = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post).FirstOrDefault();
+            postMessageViewModel.post_title = postMessage.Post.Post_Title;
+            ModelState.Clear();
+            TryValidateModel(postMessageViewModel);
+            if (ModelState.IsValid)
+            {
+                
+                db.Entry(postMessage).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("MemberPostsList");
+            }
+            return View(postMessageViewModel);
         }
     }
 }

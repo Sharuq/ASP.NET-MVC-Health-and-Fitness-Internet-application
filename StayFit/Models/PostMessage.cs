@@ -21,6 +21,9 @@ namespace StayFit.Models
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         [Required]
+        public Boolean Message_Status { get; set; }
+
+        [Required]
         public virtual Post Post { get; set; }
 
         public virtual Image Image { get; set; }

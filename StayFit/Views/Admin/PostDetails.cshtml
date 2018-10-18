@@ -15,35 +15,65 @@
 
 @foreach (var item in Model.postMessages)
 {
+
     if (@Context.User.Identity.Name == item.ApplicationUser.UserName)
     {
         <div class="well">
             @*Html.DisplayFor(modelItem => item.Post_Message)*@
             @Html.Raw(item.Post_Message)
+            @if (item.Image != null)
+            {
+                <img class="img-thumbnail" style="width:50%;height:50%;display: block;margin-left: auto;margin-right: auto;" src='@Url.Content("~/Uploads/" + item.Image.Image_Path)' />
+            }
             <br />
             <div style="text-align:right;">
                 <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>
             </div>
             <div style="text-align:right;">
                 <br />
-                <button type="submit" class="btn btn-success btn-xs">Edit</button>&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="well">
-            @*Html.DisplayFor(modelItem => item.Post_Message)*@
-            @Html.Raw(item.Post_Message)
-            <br />
-            <div style="text-align:right;">
-                <br />
-                <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>
+                @Html.ActionLink("Edit", "EditPostMessage", "GymMembers", new { id = item.Post_Message_Id }, new { @class = "btn btn-success btn-xs" })&nbsp;&nbsp;&nbsp;
+                @Html.ActionLink("Delete", "DeletePostMessage", "GymMembers", new { id = item.Post_Message_Id }, new { @class = "btn btn-danger btn-xs" })
             </div>
 
         </div>
     }
+    else
+    {
+        if (item.Message_Status == false)
+        {
+            <div class="well">
+                @*Html.DisplayFor(modelItem => item.Post_Message)*@
+                @Html.Raw(item.Post_Message)
+                @if (item.Image != null)
+                {
+                    <img class="img-thumbnail" style="width:50%;height:50%;display: block;margin-left: auto;margin-right: auto;" src='@Url.Content("~/Uploads/" + item.Image.Image_Path)' />
+                }
+                <br />
+                <div style="text-align:right;">
+                    <br />
+                    <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>
+                </div>
+                <div style="text-align:right;">
+                    <br />
+                    @Html.ActionLink("Disapprove", "DisapprovePostMessage", "Admin", new { id = item.Post_Message_Id }, new { @class = "btn btn-danger btn-xs" })
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="well" style="font-size:20px;font-weight:500;font-style:initial;font-family:Georgia;color:red">
+                This comment is disapproved by administrator
+                <div style="text-align:right;">
+                    <br />
+                    @Html.ActionLink("Approve", "ApprovePostMessage", "Admin", new { id = item.Post_Message_Id }, new { @class = "btn btn-success btn-xs" })
+                </div>
+            </div>
+        }
+    }
+
+
+
 }
 
 

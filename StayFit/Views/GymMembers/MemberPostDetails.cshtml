@@ -15,53 +15,52 @@
 
 @foreach (var item in Model.postMessages)
 {
-    if (@Context.User.Identity.Name == item.ApplicationUser.UserName)
+    if (item.Message_Status == false)
     {
-        <div class="well">
-            @*Html.DisplayFor(modelItem => item.Post_Message)*@
-            @Html.Raw(item.Post_Message)
-            @if (item.Image != null)
-            {
-                <img class="img-thumbnail" src='@Url.Content("~/Uploads/" + item.Image.Image_Path)' />
-            }
-            <br />
-            <div style="text-align:left;">
-                <span style="font-weight:900;"> <i class="glyphicon glyphicon-thumbs-up" style="color:darkcyan"></i>Like</span>&nbsp;&nbsp;&nbsp;
-                <span style="font-weight:900;"> <i class="glyphicon glyphicon-thumbs-down" style="color:darkcyan"></i>Dislike</span>
-            </div>
-            <div style="text-align:right;">
-                <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>
-            </div>
-            <div style="text-align:right;">
-                <br />
-                <button type="submit" class="btn btn-success btn-xs">Edit</button>&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-            </div>
-        </div>
+        if (@Context.User.Identity.Name == item.ApplicationUser.UserName)
+        {
+<div class="well">
+    @*Html.DisplayFor(modelItem => item.Post_Message)*@
+    @Html.Raw(item.Post_Message)
+    @if (item.Image != null)
+    {
+        <img class="img-thumbnail" style="width:50%;height:50%;display: block;margin-left: auto;margin-right: auto;" src='@Url.Content("~/Uploads/" + item.Image.Image_Path)' />
+    }
+    <br />
+    <div style="text-align:right;">
+        <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>
+    </div>
+    <div style="text-align:right;">
+        <br />
+        @Html.ActionLink("Edit", "EditPostMessage", "GymMembers", new { id = item.Post_Message_Id }, new { @class = "btn btn-success btn-xs" })&nbsp;&nbsp;&nbsp;
+        @Html.ActionLink("Delete", "DeletePostMessage", "GymMembers", new { id = item.Post_Message_Id }, new { @class = "btn btn-danger btn-xs" })
+    </div>
+</div>
+        }
+        else
+        {
+<div class="well">
+    @*Html.DisplayFor(modelItem => item.Post_Message)*@
+    @Html.Raw(item.Post_Message)
+
+    @if (item.Image != null)
+    {
+        <img class="img-thumbnail" style="width:50%;height:50%;display: block;margin-left: auto;margin-right: auto;" src='@Url.Content("~/Uploads/" + item.Image.Image_Path)' />
+    }
+
+
+    <br />
+    <div style="text-align:right;">
+        <br />
+        <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>
+    </div>
+
+</div>
+        }
     }
     else
     {
-        <div class="well">
-            @*Html.DisplayFor(modelItem => item.Post_Message)*@
-            @Html.Raw(item.Post_Message)
-
-            @if (item.Image != null)
-            {
-                <img class="img-thumbnail" src='@Url.Content("~/Uploads/" + item.Image.Image_Path)' />
-            }
-
-
-            <br />
-            <div style="text-align:left;">
-                <span style="font-weight:900;"> <i class="glyphicon glyphicon-thumbs-up" style="color:darkcyan"></i>Like</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style="font-weight:900;"> <i class="glyphicon glyphicon-thumbs-down" style="color:darkcyan"></i>Dislike</span>
-            </div>
-            <div style="text-align:right;">
-                <br />
-                <span style="font-weight:900; "><i class="glyphicon glyphicon-user" style="color:darkcyan"></i> @Html.DisplayFor(modelItem => item.ApplicationUser.Email)</span>
-            </div>
-
-        </div>
+        <div class="well" style="font-size:20px;font-weight:500;font-style:initial;font-family:Georgia;color:red">This comment is disapproved by administrator</div>
     }
 }
 
@@ -87,6 +86,7 @@
                         </button>
                         <p style="font-size:20px;font-weight:400;font-style:initial;font-family:Georgia; color:#18bc9c">Enter Your Comments Here:</p>
                     </div>
+                    <div class="modal-body">
                         <div class="form-group">
 
                             @Html.EditorFor(model => model.post_message, new { htmlAttributes = new { @class = "form-control", @id = "textArea" } })
@@ -95,19 +95,20 @@
                         </div>
                         <div class="form-group">
 
-                            <label class="control-label col-md-2" for="Name">Select File</label>
-                            <input type="file" name="postedFile" class="btn btn-default" accept="image/png,image/gif,image/jpeg"/>
+                            <label class="control-label" for="Name">Select File</label>
+                            <input type="file" name="postedFile" class="btn btn-default" accept="image/png,image/gif,image/jpeg" />
                         </div>
                         <div class="g-recaptcha" data-sitekey="6LfGnHUUAAAAABjYFi2Uhs9XCJKaxjSRtVLTewC1"></div>
-                </div>
-                <div class="modal-footer">
+                    </div>
+                    <div class="modal-footer">
                         <div class="form-group">
 
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success" name="btn" value="@Model.postMessages.First().Post.Post_Id">Submit</button>
                         </div>
-                 </div>
-            </div>
+                    </div>
+                </div>
+         </div>
         </div>
     </div>
     
