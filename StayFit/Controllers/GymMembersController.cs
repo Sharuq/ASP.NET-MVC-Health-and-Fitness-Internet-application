@@ -27,8 +27,10 @@ namespace StayFit.Controllers
             GymMember memberProfile = db.GymMember.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
             if (memberProfile == null)
             {
-                //return HttpNotFound();
-                return RedirectToAction("Create");
+                string name = User.Identity.Name;
+                if (name.Equals("admin@admin.com"))
+                { return RedirectToAction("GymMembersList", "Admin"); }
+                else{ return RedirectToAction("Create"); }
             }
             return View();
         }
@@ -47,8 +49,10 @@ namespace StayFit.Controllers
             GymMember memberProfile = db.GymMember.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
             if (memberProfile == null)
             {
-                //return HttpNotFound();
-                return RedirectToAction("Create");
+                string name = User.Identity.Name;
+                if (name.Equals("admin@admin.com"))
+                { return RedirectToAction("GymMembersList", "Admin"); }
+                else { return RedirectToAction("Create"); }
             }
             return View(memberProfile);
         }
@@ -160,6 +164,15 @@ namespace StayFit.Controllers
         // GET: Posts list
         public ActionResult MemberPostsList()
         {
+            string id = User.Identity.GetUserId();
+            GymMember memberProfile = db.GymMember.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
+            if (memberProfile == null)
+            {
+                string name = User.Identity.Name;
+                if (name.Equals("admin@admin.com"))
+                { return RedirectToAction("GymMembersList", "Admin"); }
+                else { return RedirectToAction("Create"); }
+            }
             return View(db.Posts.ToList());
         }
 
@@ -237,7 +250,7 @@ namespace StayFit.Controllers
 
 
 
-        // GET: Posts/Delete/5
+        // GET: Posts/DeletePostMessage/5
         public ActionResult DeletePostMessage(int? id)
         {
             if (id == null)
@@ -252,20 +265,21 @@ namespace StayFit.Controllers
             return View(postMessage);
         }
 
-        // POST: Posts/Delete/5
+        // POST: Posts/DeletePostMessage/5
         [HttpPost, ActionName("DeletePostMessage")]
         [ValidateAntiForgeryToken]
         public ActionResult DeletePostMessageConfirmed(int id)
         {
             PostMessage postMessage = db.PostMessages.Find(id);
+            int post_id = postMessage.Post.Post_Id;
             db.PostMessages.Remove(postMessage);
             db.SaveChanges();
-            return RedirectToAction("MemberPostsList");
+            return RedirectToAction("MemberPostDetails", new { id = post_id });
         }
 
 
 
-        // GET: PostMessages/Edit/5
+        // GET: PostMessages/EditPostMessage/5
         public ActionResult EditPostMessage(int? id)
         {
             if (id == null)
@@ -290,7 +304,7 @@ namespace StayFit.Controllers
             return View(postMessageViewModel);
         }
 
-        // POST: PostMessages/Edit/5
+        // POST: PostMessages/EditPostMessage/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -312,7 +326,7 @@ namespace StayFit.Controllers
                 
                 db.Entry(postMessage).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("MemberPostsList");
+                return RedirectToAction("MemberPostDetails", new { id = postMessage.Post.Post_Id });
             }
             return View(postMessageViewModel);
         }

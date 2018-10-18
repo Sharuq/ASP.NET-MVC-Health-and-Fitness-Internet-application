@@ -24,8 +24,12 @@ namespace StayFit.Controllers
             GymMember memberProfile = db.GymMember.Where(p => p.ApplicationUser.Id == id).FirstOrDefault();
             if (memberProfile == null)
             {
+                string name = User.Identity.Name;
+                if (name.Equals("admin@admin.com"))
+                { return RedirectToAction("GymMembersList", "Admin"); }
+                else { return RedirectToAction("Create", "GymMembers"); }
                 //return HttpNotFound();
-                return RedirectToAction("Create","GymMembers");
+                
             }
             var user = db.Users.Find(User.Identity.GetUserId());
             var serviceBookings = db.ServiceBooking.Where(m => m.ApplicationUser.Id == user.Id).ToList();

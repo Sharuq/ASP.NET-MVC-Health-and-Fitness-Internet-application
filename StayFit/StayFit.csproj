@@ -362,6 +362,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\GymMember.cs" />
     <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\NewsletterViewModel.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostMessage.cs" />
     <Compile Include="Models\PaymentGateway.cs" />
@@ -486,6 +487,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\themes\Style1.css" />
+    <Content Include="Email_Template\Newsletter_Contents.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -756,6 +758,10 @@
     <Content Include="Views\GymMembers\DeletePostMessage.cshtml" />
     <Content Include="Views\GymMembers\EditPostMessage.cshtml" />
     <Content Include="Views\Admin\DisapprovePostMessage.cshtml" />
+    <Content Include="Views\Admin\ApprovePostMessage.cshtml" />
+    <Content Include="Views\Admin\DeletePostMessage.cshtml" />
+    <Content Include="Views\Admin\EditPostMessage.cshtml" />
+    <Content Include="Views\Admin\Newsletter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

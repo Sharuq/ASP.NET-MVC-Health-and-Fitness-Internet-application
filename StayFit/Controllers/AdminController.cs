@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using StayFit.Common;
 using StayFit.Models;
 using System;
 using System.Collections.Generic;
@@ -151,25 +152,33 @@ namespace StayFit.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult PostDetails([Bind(Include = "post_message")] PostMessageDetailsViewModel postMessageDetailsViewModel, string btn)
+        public ActionResult PostDetails([Bind(Include = "post_message")] PostMessageDetailsViewModel postMessageDetailsViewModel, string btn, HttpPostedFileBase postedFile)
         {
-
+            var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid());
+            Image image = new Image();
             if (ModelState.IsValid)
             {
                 int post_id = Convert.ToInt32(btn);
-                //string msgg = postMessageDetailsViewModel.post_message;
-                //Post post = new Post();
                 PostMessage postMessage = new PostMessage();
-                //post.Post_Title = postViewModel.post_title;
-                //db.Posts.Add(post);
-                //db.SaveChanges();
                 postMessage.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
                 postMessage.Post_Message = postMessageDetailsViewModel.post_message;
                 Post post = db.Posts.Find(post_id);
                 postMessage.Post = post;
+                if (postedFile != null)
+                {
+                    image.Image_Path = myUniqueFileName;
+                    string serverPath = Server.MapPath("~/Uploads/");
+                    string fileExtension = Path.GetExtension(postedFile.FileName);
+                    string filePath = image.Image_Path + fileExtension;
+                    image.Image_Path = filePath;
+                    postedFile.SaveAs(serverPath + image.Image_Path);
+                    db.Images.Add(image);
+                    db.SaveChanges();
+                    postMessage.Image = image;
+                }
                 db.PostMessages.Add(postMessage);
                 db.SaveChanges();
-                return RedirectToAction("PostsList");
+                return RedirectToAction("PostDetails");
             }
 
             return View(postMessageDetailsViewModel);
@@ -190,12 +199,7 @@ namespace StayFit.Controllers
         {
             var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid());
             Image image = new Image();
-            image.Image_Path = myUniqueFileName;
-            string serverPath = Server.MapPath("~/Uploads/");
-            string fileExtension = Path.GetExtension(postedFile.FileName);
-            string filePath = image.Image_Path + fileExtension;
-            image.Image_Path = filePath;
-            
+           
 
             if (ModelState.IsValid)
             {
@@ -207,10 +211,18 @@ namespace StayFit.Controllers
                 postMessage.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
                 postMessage.Post_Message = postViewModel.post_message;
                 postMessage.Post = post;
-                postedFile.SaveAs(serverPath + image.Image_Path);
-                db.Images.Add(image);
-                db.SaveChanges();
-                postMessage.Image = image;
+                if (postedFile != null)
+                {
+                    image.Image_Path = myUniqueFileName;
+                    string serverPath = Server.MapPath("~/Uploads/");
+                    string fileExtension = Path.GetExtension(postedFile.FileName);
+                    string filePath = image.Image_Path + fileExtension;
+                    image.Image_Path = filePath;
+                    postedFile.SaveAs(serverPath + image.Image_Path);
+                    db.Images.Add(image);
+                    db.SaveChanges();
+                    postMessage.Image = image;
+                }
                 db.PostMessages.Add(postMessage);
                 db.SaveChanges();
                 return RedirectToAction("PostsList");
@@ -269,9 +281,160 @@ namespace StayFit.Controllers
             postMessage.Message_Status = true;
             db.Entry(postMessage).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("PostsList");
+            return RedirectToAction("PostDetails", new { id = postMessage.Post.Post_Id });
         }
 
+
+        // GET: Posts/ApprovePostMessage/5
+        public ActionResult ApprovePostMessage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PostMessage postMessage = db.PostMessages.Find(id);
+            if (postMessage == null)
+            {
+                return HttpNotFound();
+            }
+            return View(postMessage);
+        }
+
+        // POST: Posts/ApprovePostMessage/5
+        [HttpPost, ActionName("ApprovePostMessage")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ApprovePostMessageConfirmed(int id)
+        {
+            PostMessage postMessage = db.PostMessages.Find(id);
+            postMessage.Message_Status = false;
+            db.Entry(postMessage).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("PostDetails", new { id = postMessage.Post.Post_Id });
+        }
+
+
+        // GET: Posts/DeletePostMessage/5
+        public ActionResult DeletePostMessage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PostMessage postMessage = db.PostMessages.Find(id);
+            if (postMessage == null)
+            {
+                return HttpNotFound();
+            }
+            return View(postMessage);
+        }
+
+        // POST: Posts/DeletePostMessage/5
+        [HttpPost, ActionName("DeletePostMessage")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePostMessageConfirmed(int id)
+        {
+            PostMessage postMessage = db.PostMessages.Find(id);
+            int post_id = postMessage.Post.Post_Id;
+            db.PostMessages.Remove(postMessage);
+            db.SaveChanges();
+            return RedirectToAction("PostDetails", new { id = post_id });
+        }
+
+        // GET: PostMessages/EditPostMessage/5
+        public ActionResult EditPostMessage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+               
+            }
+            PostMessage postMessage = db.PostMessages.Find(id);
+            if (postMessage == null)
+            {
+                return HttpNotFound();
+            }
+            PostMessageViewModel postMessageViewModel = new PostMessageViewModel();
+            postMessageViewModel.post_message_id = postMessage.Post_Message_Id;
+            postMessageViewModel.post_message = postMessage.Post_Message;
+            int message_id = postMessage.Post_Message_Id;
+            int post_id = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post.Post_Id).FirstOrDefault();
+            Post post = db.Posts.Find(post_id);
+            //post.Post_Title = postMessageViewModel.post_title;
+            postMessageViewModel.post_title = post.Post_Title;
+
+
+            return View(postMessageViewModel);
+        }
+
+        // POST: PostMessages/EditPostMessage/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPostMessage([Bind(Include = "post_title,post_message,post_message_id")] PostMessageViewModel postMessageViewModel)
+        {
+            int message_id = postMessageViewModel.post_message_id;
+
+            PostMessage postMessage = new PostMessage();
+            postMessage.Post_Message = postMessageViewModel.post_message;
+            postMessage.Post_Message_Id = postMessageViewModel.post_message_id;
+            postMessage.ApplicationUser = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.ApplicationUser).FirstOrDefault();
+            postMessage.Post = db.PostMessages.Where(p => p.Post_Message_Id == message_id).Select(p => p.Post).FirstOrDefault();
+            postMessageViewModel.post_title = postMessage.Post.Post_Title;
+            ModelState.Clear();
+            TryValidateModel(postMessageViewModel);
+            if (ModelState.IsValid)
+            {
+
+                db.Entry(postMessage).State = EntityState.Modified;
+                db.SaveChanges();
+               // return RedirectToAction("PostDetails");
+                return RedirectToAction("PostDetails", new { id = postMessage.Post.Post_Id });
+            }
+            return View(postMessageViewModel);
+        }
+
+
+
+
+        public ActionResult Newsletter()
+        {
+            return View(new NewsletterViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult Newsletter(NewsletterViewModel newsletterViewModel)
+        {
+            var gymMembers = db.GymMember.ToList();
+            if (ModelState.IsValid)
+            {
+                foreach (var x in gymMembers)
+                {
+                    
+                        String toEmail = x.ApplicationUser.Email;
+                        String subject = newsletterViewModel.News_title;
+                        String contents = newsletterViewModel.News_content;
+                    String contents1 = String.Empty;
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Email_Template/Newsletter_Contents.html")))
+                    {
+                        contents1 = reader.ReadToEnd();
+                    }
+                    contents1 = contents1.Replace("CONTENTS", contents);
+                    //contents = contents1 + contents ;
+                    EmailSender es = new EmailSender();
+                        es.Send(toEmail, subject, contents1);
+
+                        ViewBag.Result = "Newsletter has been send.";
+
+                        
+  
+                }
+                ModelState.Clear();
+                return View(new NewsletterViewModel());
+            }
+
+            return View();
+        }
 
     }
 }

@@ -1,29 +1,23 @@
-﻿@model StayFit.Models.PostViewModel
+﻿@model StayFit.Models.PostMessageViewModel
+
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c"> Create Discussion</h1>
+<h1 style="font-size:45px;font-weight:500;font-style:initial;font-family:Georgia; color:#18bc9c"> Edit Comment</h1>
 <hr style="border-top: 1px solid #ccc; background: transparent;">
-
-@using (Html.BeginForm("CreatePost", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm())
 {
-                @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
-      <div class="form-horizontal">
+    <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
+        @Html.HiddenFor(model => model.post_message_id)
 
-            <div class="col-md-10">
-                <h3 style="font-size:22px; font-weight:200;font-family:Helvetica; display:inline-block">Discussion Title</h3>
-                @Html.EditorFor(model => model.post_title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.post_title, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        
         <div class="form-group">
-
             <div class="col-md-10">
                 <h3 style="font-size:22px; font-weight:200;font-family:Helvetica; display:inline-block">Discussion Contents</h3>
                 @Html.EditorFor(model => model.post_message, new { htmlAttributes = new { @class = "form-control", @id = "textArea" } })
@@ -31,15 +25,8 @@
             </div>
         </div>
         <div class="form-group">
-                <div class="col-md-10">
-                    <label class="control-label" for="Name">Select File</label>
-                    <input type="file" name="postedFile" class="btn btn-default" accept="image/png,image/gif,image/jpeg" />
-                </div>
-        </div>
-        
-        <div class="form-group">
             <div class="col-md-10">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </div>
     </div>
