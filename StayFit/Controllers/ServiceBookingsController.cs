@@ -78,6 +78,7 @@ namespace StayFit.Controllers
                 {
                     contents1 = reader.ReadToEnd();
                 }
+                contents1 = contents1.Replace("CONTENT0", serviceBooking.Booking_Id.ToString());
                 contents1 = contents1.Replace("CONTENT1", serviceBooking.Service.SeviceName);
                 contents1 = contents1.Replace("CONTENT2", serviceBooking.BookingDate.ToShortDateString());
                 contents1 = contents1.Replace("CONTENT3", serviceBooking.ServiceTimings.Timing);
@@ -149,6 +150,7 @@ namespace StayFit.Controllers
                 {
                     contents1 = reader.ReadToEnd();
                 }
+                contents1 = contents1.Replace("CONTENT0", serviceBooking.Booking_Id.ToString());
                 contents1 = contents1.Replace("CONTENT1", serviceBooking.Service.SeviceName);
                 contents1 = contents1.Replace("CONTENT2", serviceBooking.BookingDate.ToShortDateString());
                 contents1 = contents1.Replace("CONTENT3", serviceBooking.ServiceTimings.Timing);

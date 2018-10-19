@@ -30,9 +30,22 @@
     }
 
 </table>
+
 <br /><br />
 <hr />
 
 <h3 style="font-size:22px; font-weight:200;font-family:Helvetica; color:#18bc9c; display:inline-block">
     <span> <i class="glyphicon glyphicon-hand-right" style="color:darkcyan"></i> </span> @Html.ActionLink("Create New Discussion", "CreatePost") <span> <i class="glyphicon glyphicon-hand-right" style="color:darkcyan"></i> </span>
 </h3>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script>
+$(document).ready(function () {
+$('.table').DataTable();
+});
+    </script>
+}
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
+      rel="stylesheet" />

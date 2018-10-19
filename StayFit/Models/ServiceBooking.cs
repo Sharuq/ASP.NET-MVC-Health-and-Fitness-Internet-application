@@ -26,7 +26,7 @@ namespace StayFit.Models
         [Required]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-        
+        [Required]
         [Display(Name = "Choose a Service")]
         public virtual Service Service { get; set; }
 
