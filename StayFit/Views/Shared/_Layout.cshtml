@@ -25,8 +25,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Pricing", "Index", "Home", null, null, "pricing", new { id = "pricing" }, null)</li>
-                    <li>@Html.ActionLink("About", "Index", "Home", null, null, "pricing", new { id = "pricing" }, null)</li>
-                    <li>@Html.ActionLink("Contact", "Index", "Home", null, null, "contact", new { id = "fh5co-footer" }, null)</li>
+                    <li><a href="#fh5co-footer">About Us</a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -39,13 +38,13 @@
             <div class="overlay"></div>
             <div class="container" id="fh5co-footer1">
                 <div class="row row-pb-md">
-                    <div class="col-md-4 fh5co-widget">
+                    <div class="col-md-6 fh5co-widget">
                         <h3>About Us.</h3>
-                        <p>We are the best of best. Train with confidences ,Set a goal and beat through challenges.</p>
+                        <p>We are the best of best. We train with confidences. We have designed our gyms around the things that matter most to our members, which allows us to provide high quality gym memberships for low prices.</p>
                         <br />
                         @Html.ActionLink("Become A Member", "Register", "Account", null, new { @class = "btn btn-primary hover mt-20 " })
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <h3>Our Classes</h3>
                         <div class="col-md-4 col-sm-4 col-xs-6">
                             <ul class="fh5co-footer-links">

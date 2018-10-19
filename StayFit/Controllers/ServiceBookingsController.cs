@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using StayFit.Models;
 using Microsoft.AspNet.Identity;
+using System.IO;
+using StayFit.Common;
 
 namespace StayFit.Controllers
 {
@@ -68,6 +70,20 @@ namespace StayFit.Controllers
             {
                 db.Entry(serviceBooking).State = EntityState.Modified;
                 db.SaveChanges();
+                String toEmail = serviceBooking.ApplicationUser.Email;
+                String subject = serviceBooking.Service.SeviceName + " Booking  Cancellation Details";
+                //String contents = newsletterViewModel.News_content;
+                String contents1 = String.Empty;
+                using (StreamReader reader = new StreamReader(Server.MapPath("~/Email_Template/Cancel_Contents.html")))
+                {
+                    contents1 = reader.ReadToEnd();
+                }
+                contents1 = contents1.Replace("CONTENT1", serviceBooking.Service.SeviceName);
+                contents1 = contents1.Replace("CONTENT2", serviceBooking.BookingDate.ToShortDateString());
+                contents1 = contents1.Replace("CONTENT3", serviceBooking.ServiceTimings.Timing);
+                //contents = contents1 + contents ;
+                EmailSender es = new EmailSender();
+                es.Send(toEmail, subject, contents1);
                 return RedirectToAction("Index");
             }
             return View(serviceBooking);
@@ -125,6 +141,20 @@ namespace StayFit.Controllers
                 serviceBooking.ApplicationUser = db.Users.Find(User.Identity.GetUserId());
                 db.ServiceBooking.Add(serviceBooking);
                 db.SaveChanges();
+                String toEmail = serviceBooking.ApplicationUser.Email;
+                String subject = serviceBooking.Service.SeviceName + " Booking Details";
+                //String contents = newsletterViewModel.News_content;
+                String contents1 = String.Empty;
+                using (StreamReader reader = new StreamReader(Server.MapPath("~/Email_Template/Booking_Contents.html")))
+                {
+                    contents1 = reader.ReadToEnd();
+                }
+                contents1 = contents1.Replace("CONTENT1", serviceBooking.Service.SeviceName);
+                contents1 = contents1.Replace("CONTENT2", serviceBooking.BookingDate.ToShortDateString());
+                contents1 = contents1.Replace("CONTENT3", serviceBooking.ServiceTimings.Timing);
+                //contents = contents1 + contents ;
+                EmailSender es = new EmailSender();
+                es.Send(toEmail, subject, contents1);
                 return RedirectToAction("Index");
             }
             ViewBag.Service = new SelectList(db.Service, "Service_Id ", "SeviceName");

@@ -487,6 +487,8 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\themes\Style1.css" />
+    <Content Include="Email_Template\Booking_Contents.html" />
+    <Content Include="Email_Template\Cancel_Contents.html" />
     <Content Include="Email_Template\Newsletter_Contents.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
