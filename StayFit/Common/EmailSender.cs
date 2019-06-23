@@ -11,7 +11,7 @@ namespace StayFit.Common
     public class EmailSender
     {
         // Please use your API KEY here.
-        private const String API_KEY = "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";
+        private const String API_KEY = "";
 
         public void Send(String toEmail, String subject, String contents)
         {
